@@ -1,0 +1,168 @@
+{% load static %}
+
+{% block headerinclude %}
+<title>Metro Events App</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="{% static 'media/metroEventsLogo.png' %}" /> <!-- wala pa ni logo-->
+<link rel="stylesheet" type="text/css" href="{% static 'css/landing.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}">
+<link href="http://cdn.phpoll.com/css/animate.css" rel="stylesheet">
+{% endblock headerinclude %}
+
+{% block content %}
+<header style="background-color: white">
+  <div class="container">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+
+      <!-- MetroEvents Logo -->
+      <div class="col-5 d-flex justify-content-end align-items-center">
+        <div class="text-center mb-2">
+          <img src="{% static 'media/logo.jpg' %}" width="505" height="130">
+        </div>
+      </div>
+
+      <!-- MetroEvents Operations-->
+      <div class="col-8 d-flex justify-content-end">
+
+        <!-- MetroEvents Icons-->
+        <ul class="nav navbar-nav navbar-left">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white; padding-top: 10px; padding-bottom: 10px; padding-left: 10px; padding-right: 10px; height: 50px; border-radius: 5px; font-size: 14px; width: 160px">
+              <i class="fa fa-map-marker" aria-hidden="true" style="color: #1b263b"></i><span class="caret"></span></a>
+            <ul id="login-dp" class="dropdown-menu dropdown-menu-right" style="background-color: #e1e1e1">
+              <li>
+                <div class="row">
+                  <div class="col-md-12">
+                    <p class="text-black">Cebu City, Philippines</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-left">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white; padding-top: 10px; padding-bottom: 10px; padding-left: 10px; padding-right: 10px; height: 50px; border-radius: 5px; font-size: 14px; width: 160px">
+              <i class="fa fa-envelope" aria-hidden="true" style="color: #1b263b"></i><span class="caret"></span></a>
+            <ul id="login-dp" class="dropdown-menu dropdown-menu-right" style="background-color: #e1e1e1">
+              <li>
+                <div class="row">
+                  <div class="col-md-12">
+                    <ul class="info-list">
+                      <li><span class="siteinfo-name" style="font-weight: 700">General Inquiries:</span>
+                        <a href="mailto:info@cit.edu" style="color: #1b263b">info@metroevents.com</a>
+                      </li>
+                      <li>
+                        <span class="siteinfo-name" style="font-weight: 700">Admissions:</span>
+                        <a href="mailto:admission@cit.edu" style="color: #1b263b">admission@metroevents.com</a>
+                        <p></p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-left">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white; padding-top: 10px; padding-bottom: 10px; padding-left: 10px; padding-right: 10px; height: 50px; border-radius: 5px; font-size: 14px">
+              <i class="fa fa-phone" aria-hidden="true" style="color: #1b263b"></i><span class="caret"></span></a>
+            <ul id="login-dp" class="dropdown-menu dropdown-menu-right" style="background-color: #e1e1e1">
+              <li>
+                <div class="row">
+                  <div class="col-md-12">
+                    <p class="text-black"><b>PLDT Trunk Line:</b> +63322617741</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- RoBust Login-->
+        <ul class="nav navbar-nav navbar-left">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white; padding-top: 10px; padding-bottom: 10px; padding-left: 10px; padding-right: 10px; background-color: #1b263b; height: 50px; border-radius: 5px; font-size: 14px; width: 160px">
+              <i class="fa fa-lock" aria-hidden="true"></i> LOG IN<span class="caret"></span></a>
+            <ul id="login-dp" class="dropdown-menu dropdown-menu-right" style="background-color: #415a77">
+              <li>
+                <div class="row">
+                  <div class="col-md-12">
+
+
+                    <form class="post-form" role="form" method="post" action="landing" accept-charset="UTF-8" id="login-nav">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail2">Username</label>
+                        <input type="text" class="form-control" id="id-passengerID" name="username" placeholder="Username" required>
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputPassword2"><i class="fa fa-lock" aria-hidden="true"></i>Password</label>
+                        <input type="password" class="form-control" id="id-password" placeholder="Password" name="password" required>
+                      </div>
+                      <center><label class="text-danger">{{msg}}</label></center>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary form-control" style="background-color: #1b263b">></button>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="text-center">
+                              <a href="" tabindex="5" class="forgot-password" style="color: white">Forgot Password?</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Nav Bar: About Us Modal -->
+<div style="background-color: #1b263b; border-bottom-color: #fec5bb; 
+border-bottom-style: solid">
+  <button type="button" class="btn btn1" data-toggle="modal" data-target="#about" style="color: white; position: relative; left: 130px">
+    About Us
+  </button>
+
+
+  <div class="modal fade" id="about" tabindex="-1" role="dialog" aria-labelledby="aboutCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="background-color:beige">
+        <div class="modal-header">
+          <h5 class="modal-title" id="aboutLongTitle"><b>About Us</b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-black" style="text-align:justify"> &nbsp;&nbsp;&nbsp;&nbsp; Metro Events is an app...</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn default" data-dismiss="modal" style="background-color: #1b263b; color: white">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% block footerinclude %}
+<!-- Footer -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+<script src="{% static 'js/landing.js' %}"></script>
+{% endblock footerinclude %}
+{% endblock content %}
