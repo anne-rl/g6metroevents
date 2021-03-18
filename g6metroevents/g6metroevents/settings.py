@@ -76,7 +76,11 @@ WSGI_APPLICATION = 'g6metroevents.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'group6dbazure',
+        'USER': 'group6@group6-db',
+        'PASSWORD': 'ferolinorepuntelabasanmagno6DB',
+        'HOST': 'group6-db.mysql.database.azure.com',
+        'PORT': '3306'
     }
 }
 
