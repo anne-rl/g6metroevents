@@ -1,0 +1,246 @@
+{% load static %}
+
+{% block headerinclude %}
+  <title>Organizer Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="{% static 'media/metroEventsLogo.png' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/organizerDashboard_eventList.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  {% endblock headerinclude %}
+  {% block footerinclude %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% endblock footerinclude %}
+{% block content %}
+    <img src="{% static 'media/logo.png' %}" width="505" height="130" class="center">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div> -->
+    <ul class="nav navbar-nav">
+      <!-- <li class="active"><a href="#">Home</a></li> -->
+      <li class="active" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="organizerDashboardEventList">Organize Events<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="userDashboard_eventList">Events</a></li>
+          <li><a href="organizerDashboardEventList"> Organize Events</a></li>
+          <li><a data-toggle="modal" data-target="#modalAdminRequest" data-parent="#accordion" href="#collapse3"> Administrator Events</a></li>
+        </ul>
+      </li><!-- 
+      <li><a href="#">Page 2</a></li>
+      <li><a href="#">Page 3</a></li> -->
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li> <a href="userDashboard_notifications" class="notification"> <span>Notifications</span> <span class="badge">3</span> </a> </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">USERNAME<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">My Account</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+</div>
+</nav>
+<div class="container-fluid">
+    <h1 class="mt-4"><b>Dashboard</b></h1>
+    <div class="row col-12">
+            <div class="col-md-3 col-sm-3">
+                        <h3>In Progress</h3>
+                {% for conference in ongoing %}
+                <div class="col-md-12 col-sm-12">
+                    <div id="blk1" class="block1">
+                        <h3>In Progress</h3>
+                        <h1>
+                            <input type="text" id="inProgress" name="inProgress" value="{{ conference.title }}" readonly>
+                        </h1>
+                        <p>
+                            <textarea id="txt_inProgress" name="txt_inProgress" readonly>
+                        {{ conference.description }}
+                    </textarea>
+                </p>
+                <button id="btn_join" class="btn btn-default blk2-btn" data-toggle="modal" data-target="#showMoreModal-{{ conference.id }}"><div class="join">Show More</div></a>
+                </div>
+                <div class="modal fade" id="showMoreModal-{{conference.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog conf-modal" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"><i class="fas fa-edit"></i>  Conference Details</h5>
+                                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="conf-modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="{% static 'img/createConferenceImg.png' %}" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-6 bg-light">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <div class="input-group">
+                                                <div class="input-group-prepend mb-3">
+                                                    <span class="input-group-text conf-prepend">Conference Title</span>
+                                                </div>
+                                                <input type="text" id="title_edit-{{conference.id}}" name="title_edit" class="conf-input form-control mb-3" value="{{conference.title}}" required maxlength="150" readonly>
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend mb-3">
+                                                    <span class="input-group-text conf-prepend">Date</span>
+                                                </div>
+                                                <input type="date" id="date_edit-{{conference.id}}" name="date_edit" class="conf-input form-control mb-3" value={{conference.date|date:"Y-m-d"}} required readonly>
+                                                <script type="text/javascript">
+                                                    disableBeforeToday('date_edit-{{conference.id}}');
+                                                </script>
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend mb-3">
+                                                    <span class="input-group-text conf-prepend">Time</span>
+                                                </div>
+                                                <input type="time" id="time_edit-{{conference.id}}" name="time_edit" class="conf-input form-control mb-3" value={{conference.time|time:"H:i:s"}} required readonly>
+                                            </div>
+                                            <textarea class="conf-input mb-3 form-control"  id="desc_edit" name="desc_edit" rows="3" placeholder="Short Description" maxlength="255" readonly>{{conference.description}}</textarea>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="col-md-3 col-sm-3">
+                    <h3>Upcoming</h3>
+            {% for conference in upcoming %}
+            <div class="col-md-12 col-sm-12">
+                <div id="blk2" class="block2">
+                    <h3>Upcoming</h3>
+                    <h1>
+                        <input type="text" id="nextUp" name="nextUp" value="{{ conference.title }}" readonly>
+                    </h1>
+                    <p>
+                        <textarea id="txt_nextUp" name="txt_nextUp" readonly>
+                            {{ conference.description }}
+                        </textarea>
+                    </p>
+                    <button id="btn_remindMe" class="btn btn-default blk3-btn" data-toggle="modal" data-target="#showMoreModal-{{ conference.id }}"><div class="reminder">Remind Me</div></a>
+                    </div>
+                    <div class="modal fade" id="showMoreModal-{{conference.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog conf-modal" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><i class="fas fa-edit"></i>  Conference Details</h5>
+                                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="conf-modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img src="{% static 'img/createConferenceImg.png' %}" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-6 bg-light">
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend mb-3">
+                                                        <span class="input-group-text conf-prepend">Conference Title</span>
+                                                    </div>
+                                                    <input type="text" id="title_edit-{{conference.id}}" name="title_edit" class="conf-input form-control mb-3" value="{{conference.title}}" required maxlength="150" readonly>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend mb-3">
+                                                        <span class="input-group-text conf-prepend">Date</span>
+                                                    </div>
+                                                    <input type="date" id="date_edit-{{conference.id}}" name="date_edit" class="conf-input form-control mb-3" value={{conference.date|date:"Y-m-d"}} required readonly>
+                                                    <script type="text/javascript">
+                                                        disableBeforeToday('date_edit-{{conference.id}}');
+                                                    </script>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend mb-3">
+                                                        <span class="input-group-text conf-prepend">Time</span>
+                                                    </div>
+                                                    <input type="time" id="time_edit-{{conference.id}}" name="time_edit" class="conf-input form-control mb-3" value={{conference.time|time:"H:i:s"}} required readonly>
+                                                </div>
+                                                <textarea class="conf-input mb-3 form-control"  id="desc_edit" name="desc_edit" rows="3" placeholder="Short Description" maxlength="255" readonly>{{conference.description}}</textarea> 
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3">
+                        <h3>Completed</h3>
+            {% for conference in completed %}
+            <div class="col-md-12 col-sm-12">
+                <div id="blk3" class="block3">
+                        <h3>Completed</h3>
+                        <h1>
+                            <input type="text" id="completed" name="completed" value="{{ conference.title }}" readonly>
+                        </h1>
+                        <p>
+                            <textarea id="txt_completed" name="txt_completed" readonly>
+                                {{ conference.description }}
+                            </textarea>
+                        </p>
+                        <button id="btn_showMore" class="btn btn-default blk1-btn" data-toggle="modal" data-target="#showMoreModal-{{conference.id}}"><div class="showMore">Show More</div></button>
+                    </div>
+                </div>
+                <div class="modal fade" id="showMoreModal-{{conference.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog conf-modal" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"><i class="fas fa-edit"></i>  Conference Details</h5>
+                                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="conf-modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="{% static 'img/createConferenceImg.png' %}" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-6 bg-light">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <div class="input-group">
+                                                <div class="input-group-prepend mb-3">
+                                                    <span class="input-group-text conf-prepend">Conference Title</span>
+                                                </div>
+                                                <input type="text" id="title_edit-{{conference.id}}" name="title_edit" class="conf-input form-control mb-3" value="{{conference.title}}" required maxlength="150" readonly>
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend mb-3">
+                                                    <span class="input-group-text conf-prepend">Date</span>
+                                                </div>
+                                                <input type="date" id="date_edit-{{conference.id}}" name="date_edit" class="conf-input form-control mb-3" value={{conference.date|date:"Y-m-d"}} required readonly>
+                                                <script type="text/javascript">
+                                                    disableBeforeToday('date_edit-{{conference.id}}');
+                                                </script>
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend mb-3">
+                                                    <span class="input-group-text conf-prepend">Time</span>
+                                                </div>
+                                                <input type="time" id="time_edit-{{conference.id}}" name="time_edit" class="conf-input form-control mb-3" value={{conference.time|time:"H:i:s"}} required readonly>
+                                            </div>
+                                            <textarea class="conf-input mb-3 form-control"  id="desc_edit" name="desc_edit" rows="3" placeholder="Short Description" maxlength="255" readonly>{{conference.description}}</textarea>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        
+        </div>
+    </div>
+{% endblock content %}

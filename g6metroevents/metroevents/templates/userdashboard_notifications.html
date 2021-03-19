@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>User Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="{% static 'media/metroEventsLogo.png' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/userdashboard_eventList.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <img src="{% static 'media/logo.png' %}" width="505" height="130" class="center">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div> -->
+    <ul class="nav navbar-nav">
+      <!-- <li class="active"><a href="#">Home</a></li> -->
+        <li class="active" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Events<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="userDashboard_eventList">Events</a></li>
+          <li><a data-toggle="modal" data-target="#modalOrgRequest" data-parent="#accordion" href="#collapse3"> Organize Events</a></li>
+          <li><a data-toggle="modal" data-target="#modalAdminRequest" data-parent="#accordion" href="#collapse3"> Administrator Events</a></li>
+        </ul>
+      </li><!-- 
+      <li><a href="#">Page 2</a></li>
+      <li><a href="#">Page 3</a></li> -->
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li> <a href="userDashboard_notifications" class="notification"> <span>Notifications</span> <span class="badge">3</span> </a> </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">USERNAME<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">My Account</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+</div>
+</nav>
+<div class="container-fluid">
+    <!--Table--->
+    <div class="col col-md-12">
+        <div id="card-header" class="card-header bg-dark text-light">
+
+                        <h1 class="text-center" style="font-weight: 500;">Notifications</h1>
+
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Date and Time</th>
+                                <th scope="col"></th>
+
+                              </tr>
+                            </thead>
+                            <tbody>
+                            
+                              <tr>
+                                <td>Notif Title</td>
+                                <td>Type</td>
+                                <td>Date&Time</td>
+                                
+                                <td class="align-middle">
+                                            <button type="button" class="btn btn-success btn-xs" id="viewBtn"data-toggle="modal" data-target="#modalView"><i class="fa fa-eye"></i>Details</button>
+                                            <button type="button" class="btn btn-success btn-xs" id="viewBtn" style="background-color:red"><i class="fa fa-eye"></i>Discard</button>
+                              </tr>
+
+
+                              <!-- Modal VIEW-->
+                                <div class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header" style="background-color:#1b263b">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                          <h5 class="modal-title" style="color:#fff">NOTIFICATION</h5>
+                                      </div>
+                                        <form id="updateForm" method="post">
+
+                                        <div class="modal-body bg-dark text-light">
+                                            <div class = "row">
+                                                <center>
+                                                <textarea id="w3review" name="w3review" rows="8" cols="100">
+                                                    Notification Description
+                                                </textarea>
+                                                </center>
+
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal"style="background-color:#1ac5ff">OK</button>
+                                          <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary"style="background-color:red">Discard</button>
+                                        </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                    <!-- Modal Organizer Request-->
+                    <div class="modal fade" id="modalOrgRequest" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#1b263b">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" style="color:#fff">REQUEST TO BE AN ORGANIZER</h5>
+                                </div>
+                                <form id="updateForm" method="post">
+                                    <div class = "row">
+                                        <div class = "col-sm-12"><br><br>
+                                            <center>
+                                                Request for Organizer role for more privilege
+                                            </center><br><br>
+                                        </div>
+                                    </div>
+                                    <div class = "row">
+                                        <div class = "col-sm-12"><center>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+                                            <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">SUBMIT</button></center>
+                                        </div>
+                                    </div><br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Administrator Request-->
+                    <div class="modal fade" id="modalAdminRequest" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#1b263b">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" style="color:#fff">REQUEST TO BE AN ADMINISTRATOR</h5>
+                                </div>
+                                <form id="updateForm" method="post">
+                                    <div class = "row">
+                                        <div class = "col-sm-12"><br><br>
+                                            <center>
+                                                Request for Administrator role for more privilege
+                                            </center><br><br>
+                                        </div>
+                                    </div>
+                                    <div class = "row">
+                                        <div class = "col-sm-12"><center>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                            <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">SUBMIT</button></center>
+                                        </div>
+                                    </div><br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </tbody>
+            </table>
+        </div> 
+    </div>
+</div>
+</body>
+</html>
