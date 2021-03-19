@@ -14,9 +14,9 @@ class AdministratorView(View):
         def get(self, request):
             return render(request, 'index.html')
 
-class OrganizerView(View):
+class OrganizerDashboardEventListView(View):
         def get(self, request):
-            return render(request, 'index.html')
+            return render(request, 'organizerDashboard_eventList.html')
 
 class EventsView(View):
         def get(self, request):
@@ -26,3 +26,10 @@ class ParticipantsView(View):
         def get(self, request):
             return render(request, 'index.html')
 
+class UserDashboard_eventListsView(View):
+        def get(self, request):
+            return render(request, 'userdashboard_eventList.html')
+
+class UserDashboardNotificationsView(View):
+        def get(self, request):
+            return render(request, 'userdashboard_notifications.html')
