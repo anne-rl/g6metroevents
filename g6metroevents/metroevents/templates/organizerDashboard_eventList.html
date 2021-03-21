@@ -23,13 +23,14 @@
       <!-- <li class="active"><a href="#">Home</a></li> -->
       <li class="active" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="organizerDashboardEventList">Organize Events<span class="caret"></span></a>
         <ul class="dropdown-menu">
-        <li><a href="userDashboard_eventList">Events</a></li>
-          <li><a href="organizerDashboardEventList"> Organize Events</a></li>
-          <li><a data-toggle="modal" data-target="#modalAdminRequest" data-parent="#accordion" href="#collapse3"> Administrator Events</a></li>
+        <li><a data-toggle="modal" data-target="#modalOrganizerEvnts" data-parent="#accordion" href="#collapse3">My Events</a></li>
+        <li><a href="userDashboard_eventList">Join an Event</a></li>
+          <li><a data-toggle="modal" data-target="#modalCreateEvent" data-parent="#accordion" href="#collapse3"> Create an Event</a></li>
+        <li><a data-toggle="modal" data-target="#modalAdminRequest" data-parent="#accordion" href="#collapse3"> Administrator Events</a></li>
         </ul>
-      </li><!-- 
-      <li><a href="#">Page 2</a></li>
-      <li><a href="#">Page 3</a></li> -->
+      </li>
+     <!--  <li><a href="#">My Events</a></li>
+     <li><a href="#">Page 3</a></li> --> 
     </ul>
     <ul class="nav navbar-nav navbar-right">
         <li> <a href="userDashboard_notifications" class="notification"> <span>Notifications</span> <span class="badge">3</span> </a> </li>
@@ -240,6 +241,102 @@
                 </div>
                 {% endfor %}
             </div>
+
+
+
+            <!-- Modal Create Event-->
+                    <div class="modal fade" id="modalCreateEvent" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#1b263b">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" style="color:#fff">CREATE AN EVENT</h5>
+                                </div>
+                                <form id="updateForm" method="post">
+                                    <br>
+                                     <input type="text" name="id" hidden>
+                                      <div class="container">
+                                        <div class="row" style="width: 1200">
+                                          <div class="col-md-3 mb-3">
+                                            <label for="eventName">Event Name</label>
+                                            <input type="text" style ="text-transform: capitalize" class="form-control" id="eventName" name="eventName" minlength="1" maxlength="30" placeholder="" required>
+                                          </div>
+                                          <div class="col-md-3 mb-3">
+                                            <label for="location">Location</label>
+                                            <input type="text" class="form-control" id="location" name="location"  placeholder="">
+                                          </div>
+                                          <div class="col-md-3 mb-3">
+                                            <label for="type">Type of Event</label>
+                                            <input type="text" class="form-control" id="type" name="type" class="form-control" placeholder="" required>
+                                          </div>
+                                        </div><br>
+                                        <div class="row" style="width: 1200">
+                                          <div class="col-md-2 mb-3">
+                                            <label for="startTime">Start Time</label>
+                                            <input type="time" class="form-control" id="startTime" name="startTime" required>
+                                          </div>
+                                         <div class="col-md-2 mb-3">
+                                            <label for="endTime">End Time</label>
+                                            <input type="time" class="form-control" id="endTime" name="endTime" required>
+                                          </div>
+                                         <div class="col-md-2 mb-3">
+                                            <label for="startDate">Start Date</label>
+                                             <input type="date" class="form-control" id="startDate" name="startDate" placeholder="mm/dd/yyyy"  value="" required>
+                                          </div>
+                                         <div class="col-md-2 mb-3">
+                                            <label for="endDate">End Date</label>
+                                             <input type="date" class="form-control" id="endDate" name="endDate" placeholder="mm/dd/yyyy"  value="" required>
+                                          </div>
+                                        </div><br>
+                                        <div class="row" style="width: 1200">
+                                          <div class="col-md-9 mb-3">
+                                            <label for="plateNumber">Description</label>
+                                           <textarea class ="form-control" id="id-description" name="description" required="required" rows="6" col="10" maxlength="5000" minlength="5" style="resize: none;"></textarea>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class = "row">
+                                        <div class = "col-sm-12"><center>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+                                            <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">SUBMIT</button></center>
+                                        </div>
+                                    </div><br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Administrator Request-->
+                    <div class="modal fade" id="modalAdminRequest" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#1b263b">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" style="color:#fff">REQUEST TO BE AN ADMINISTRATOR</h5>
+                                </div>
+                                <form id="updateForm" method="post">
+                                    <div class = "row">
+                                        <div class = "col-sm-12"><br><br>
+                                            <center>
+                                                Request for Administrator role for more privilege
+                                            </center><br><br>
+                                        </div>
+                                    </div>
+                                    <div class = "row">
+                                        <div class = "col-sm-12"><center>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                            <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">SUBMIT</button></center>
+                                        </div>
+                                    </div><br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+           
+        </div> 
         
         </div>
     </div>

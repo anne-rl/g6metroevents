@@ -34,7 +34,7 @@
         <li> <a href="userDashboard_notifications" class="notification"> <span>Notifications</span> <span class="badge">3</span> </a> </li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">USERNAME<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">My Account</a></li>
+          <li><a href="#myaccountModal">My Account</a></li>
           <li><a href="#">Logout</a></li>
         </ul>
       </li>
@@ -52,8 +52,8 @@
                 <tr>
                     <th scope="col">Event Name</th>
                     <th scope="col">Venue</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Time</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">Start Time</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -78,23 +78,60 @@
                                 </div>
                                 <form id="updateForm" method="post">
                                     <div class="modal-body bg-dark text-light">
-                                        <div class = "row">
-                                            <center>
-                                                <textarea id="w3review" name="w3review" rows="8" cols="100">
-                                                    EVENT DESCRIPTION
-                                                </textarea>
-                                            </center>
+                                        <input type="text" name="id" hidden>
+                                          <div class="container">
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-3 mb-3">
+                                                <label for="status">Status</label>
+                                                <input type="text" style ="text-transform: capitalize" class="form-control" id="status" name="status" minlength="1" maxlength="30" placeholder="" required>
+                                              </div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="location">Location</label>
+                                                <input type="text" class="form-control" id="location" name="location"  placeholder="">
+                                              </div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="type">Type of Event</label>
+                                                <input type="text" class="form-control" id="type" name="type" class="form-control" placeholder="" required>
+                                              </div>
+                                            </div><br>
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-2 mb-3">
+                                                <label for="startTime">Start Time</label>
+                                                <input type="time" class="form-control" id="startTime" name="startTime" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="endTime">End Time</label>
+                                                <input type="time" class="form-control" id="endTime" name="endTime" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="startDate">Start Date</label>
+                                                 <input type="date" class="form-control" id="startDate" name="startDate" placeholder="mm/dd/yyyy"  value="" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="endDate">End Date</label>
+                                                 <input type="date" class="form-control" id="endDate" name="endDate" placeholder="mm/dd/yyyy"  value="" required>
+                                              </div>
+                                            </div><br>
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-9 mb-3">
+                                                <label for="plateNumber">Description</label>
+                                               <textarea class ="form-control" id="id-description" name="description" required="required" rows="6" col="10" maxlength="5000" minlength="5" style="resize: none;"></textarea>
+                                              </div>
+                                            </div>  
+                                            <br>
+                                            <div class="row" style="width: 1200">                     
+                                                <div class = "col-sm-5">
+                                                    <label>Organizer</label>
+                                                    <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="Organizer Name" value =""}>
+                                                </div>
+                                                <div class = "col-sm-4">
+                                                    <label>Number of Participants</label>
+                                                    <input name ="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="" required>
+                                                </div>
                                         </div>
-                                        <div class = "row">
-                                            <div class = "col-sm-8">
-                                                <label>Organizer</label>
-                                                <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="Organizer Name" value =""}>
-                                            </div>
-                                            <div class = "col-sm-4">
-                                                <label>Number of Participants</label>
-                                                <input name ="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="" required>
-                                            </div>
-                                        </div>
+                                            <br><br>
+            
+                                        </div>    
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">BACK</button>
@@ -121,6 +158,8 @@
                                             </center><br><br>
                                         </div>
                                     </div>
+                                    <br>
+                                    <br>
                                     <div class = "row">
                                         <div class = "col-sm-12"><center>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
