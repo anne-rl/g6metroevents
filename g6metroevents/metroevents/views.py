@@ -8,7 +8,7 @@ class LandingIndexView(View):
 
 class UserRegistrationView(View):
         def get(self, request):
-            return render(request, 'index.html')
+            return render(request, 'registration.html')
 
 class AdministratorView(View):
         def get(self, request):

@@ -1,0 +1,66 @@
+{% load static %}
+
+{% block headerinclude %}
+  <title>MetroEvents Registration</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="{% static 'media/metroEventsLogo.png' %}" />
+  <link href="http://cdn.phpoll.com/css/animate.css" rel="stylesheet">
+  <link rel="shortcut icon" href="{% static 'media/metroEventsLogo.png' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}">
+{% endblock headerinclude %}
+
+{% block content %}
+<header style="background-color: white">
+  <div class="wrapper">
+    <div class="title">
+      MetroEvents Registration Form
+    </div>
+    <form id = "form1" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="form">
+       <div class="inputfield">
+          <label>Username</label>
+          <input type="text" id = "id_sku" name="username" class="input" required>
+       </div>
+       <div class="inputfield">
+          <label>Password</label>
+          <input type="text" id = "id_category" name="password" class="input" required>
+       </div> 
+       <div class="inputfield">
+          <label>First Name</label>
+          <input type="text" id = "id_generic_name" name="first_name" class="input" required>
+       </div>
+       <div class="inputfield">
+          <label>Middle Name</label>
+          <input type="text" id = "id_generic_name" name="middle_name" class="input" required>
+       </div>
+       <div class="inputfield">
+          <label>Last Name</label>
+          <input type="text" id = "id_generic_name" name="last_name" class="input" required>
+       </div>  
+        <div class="inputfield">
+          <label>Email</label>
+          <input type="text" id = "id_common_brand"name="common_brand" class="input" required>
+       </div>  
+       <div class="inputfield">
+         <input type="number" class="input" name="isDeleted" value="0" hidden="">
+       </div>
+      <center>
+        <a type = "button" class="btn btn-secondary" id="id_registration" href="{% url 'metroevents:userDashboard_eventLists_view' %}" >CANCEL</a>
+        <button type="submit" class="btn btn-primary">REGISTER</button>
+     </center>
+    </div>
+  </form>
+</div>
+</header>
+
+{% block footerinclude %}
+<!-- Footer -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+<script src="{% static 'js/landing.js' %}"></script>
+{% endblock footerinclude %}
+{% endblock content %}
