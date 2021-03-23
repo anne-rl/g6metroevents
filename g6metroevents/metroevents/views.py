@@ -1,6 +1,7 @@
 
 from django.views.generic import View, TemplateView
 from .forms import UserForm
+from .forms import EventForm
 from django.http import Http404
 from django.shortcuts import render,redirect
 from django.views.generic import View
@@ -49,6 +50,37 @@ class AdministratorView(View):
 class OrganizerDashboardEventListView(View):
         def get(self, request):
             return render(request, 'organizerDashboard_eventList.html')
+
+        def post(self, request):       
+	        form = EventForm(request.POST)
+
+	        if form.is_valid():
+	            #try
+	            ename = request.POST.get("eventName")
+	            loc = request.POST.get("location")
+	            etype = request.POST.get("type")
+	            sTime = request.POST.get("startTime")
+	            eTime = request.POST.get("endTime")
+	            sDate = request.POST.get("startDate")
+	            eDate = request.POST.get("endDate")
+	            desc = request.POST.get("description")
+
+	            form = User(eventName = ename, location = loc, type = etype, startTime = sTime, endTime = eTime, startDate = sDate, endDate = eDate, description = desc )
+
+	            form.save()
+
+	            return redirect('metroevents:organizerDashboardEventList')
+	          
+	            # except:
+	            #   raise Http404
+	            
+	        else:
+	            print(form.errors)
+	            return HttpResponse('not valid')
+
+
+
+
 
 class EventsView(View):
         def get(self, request):
