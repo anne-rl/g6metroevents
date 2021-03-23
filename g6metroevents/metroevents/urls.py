@@ -11,6 +11,7 @@ urlpatterns = [
     path('userRegistration', views.UserRegistrationView.as_view(), name="userRegistration_view"),
     path('administrator', views.AdministratorView.as_view(), name="administartor_view"),
     path('organizerDashboardEventList', views.OrganizerDashboardEventListView.as_view(), name="organizerDashboardEventList_view"),
+    path('organizerMyEvents', views.OrganizerMyEvents.as_view(), name="organizerMyEvents_view"),
     path('events', views.EventsView.as_view(), name="events_view"),
     path('participants', views.ParticipantsView.as_view(), name="participants_view"),
     path('userDashboard_eventList', views.UserDashboard_eventListsView.as_view(), name="userDashboard_eventLists_view"),

@@ -1,0 +1,264 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Organizer My Events </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="{% static 'media/metroEventsLogo.png' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/userdashboard_eventList.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <img src="{% static 'media/logo.png' %}" width="505" height="130" class="center">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div> -->
+<!--     <ul class="nav navbar-nav">
+ -->      <!-- <li class="active"><a href="#">Home</a></li> -->
+     <!--  <li class="active" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Events<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="userDashboard_eventList">Events</a></li>
+          <li><a data-toggle="modal" data-target="#modalOrgRequest" data-parent="#accordion" href="#collapse3"> Organize Events</a></li>
+          <li><a data-toggle="modal" data-target="#modalAdminRequest" data-parent="#accordion" href="#collapse3"> Administrator Events</a></li>
+        </ul>
+      </li> -->
+      <!-- 
+      <li><a href="#">Page 2</a></li>
+      <li><a href="#">Page 3</a></li> -->
+    <!-- </ul> -->
+    <ul class="nav navbar-nav navbar-right">
+        <li> <a href="userDashboard_notifications" class="notification"> <span>Notifications</span> <span class="badge">3</span> </a> </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">USERNAME<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#myaccountModal">My Account</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+</div>
+</nav>
+<div class="container-fluid">
+    <!--Table--->
+    <div class="col col-md-12">
+        <div id="card-header" class="card-header bg-dark text-light">
+            <h1 class="text-center" style="font-weight: 500;">List of Events</h1>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Event Name</th>
+                    <th scope="col">Venue</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">Start Time</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Math Wizzard</td>
+                    <td>Auditorium</td>
+                    <td>March 26, 2021</td>
+                    <td>9:00 AM</td>
+                    <td class="align-middle">
+                        <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalView"><i class="fa fa-eye"></i>View</button>
+                    </tr>
+                    <!-- Modal VIEW-->
+                    <div class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#1b263b">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" >&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" style="color: #fff">EVENT NAME</h5>
+                                </div>
+                                <form id="updateForm" method="post">
+                                    <div class="modal-body bg-dark text-light">
+                                        <input type="text" name="id" hidden>
+                                          <div class="container">
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-3 mb-3">
+                                                <label for="status">Status</label>
+                                                <input type="text" style ="text-transform: capitalize" class="form-control" id="status" name="status" minlength="1" maxlength="30" placeholder="" required>
+                                              </div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="location">Location</label>
+                                                <input type="text" class="form-control" id="location" name="location"  placeholder="">
+                                              </div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="type">Type of Event</label>
+                                                <input type="text" class="form-control" id="type" name="type" class="form-control" placeholder="" required>
+                                              </div>
+                                            </div><br>
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-2 mb-3">
+                                                <label for="startTime">Start Time</label>
+                                                <input type="time" class="form-control" id="startTime" name="startTime" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="endTime">End Time</label>
+                                                <input type="time" class="form-control" id="endTime" name="endTime" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="startDate">Start Date</label>
+                                                 <input type="date" class="form-control" id="startDate" name="startDate" placeholder="mm/dd/yyyy"  value="" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="endDate">End Date</label>
+                                                 <input type="date" class="form-control" id="endDate" name="endDate" placeholder="mm/dd/yyyy"  value="" required>
+                                              </div>
+                                            </div><br>
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-9 mb-3">
+                                                <label for="plateNumber">Description</label>
+                                               <textarea class ="form-control" id="id-description" name="description" required="required" rows="6" col="10" maxlength="5000" minlength="5" style="resize: none;"></textarea>
+                                              </div>
+                                            </div>  
+                                            <br>
+                                            <div class="row" style="width: 1200">                     
+                                                <div class = "col-sm-5">
+                                                    <label>Organizer</label>
+                                                    <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="Organizer Name" value =""}>
+                                                </div>
+                                                <div class = "col-sm-4">
+                                                    <label>Number of Participants</label>
+                                                    <input name ="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="" required>
+                                                </div>
+                                        </div>
+                                            <br><br>
+            
+                                        </div>    
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">BACK</button>
+                                        <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">JOIN</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+            <div id="card-header" class="card-header bg-dark text-light">
+                <h6 class="text-center" style="font-weight: 100;">Click "View" to read details about the event and join</h6>
+            </div>
+
+
+            <div class="container-fluid">
+    <!--Table--->
+    <div class="col col-md-12">
+        <div id="card-header" class="card-header bg-dark text-light">
+            <h1 class="text-center" style="font-weight: 500;">My Events</h1>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Event Name</th>
+                    <th scope="col">Venue</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">Start Time</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Math Wizzard</td>
+                    <td>Auditorium</td>
+                    <td>March 26, 2021</td>
+                    <td>9:00 AM</td>
+                    <td class="align-middle">
+                        <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalView"><i class="fa fa-eye"></i>View</button>
+                    </tr>
+                    <!-- Modal VIEW-->
+                    <div class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#1b263b">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" >&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" style="color: #fff">EVENT NAME</h5>
+                                </div>
+                                <form id="updateForm" method="post">
+                                    <div class="modal-body bg-dark text-light">
+                                        <input type="text" name="id" hidden>
+                                          <div class="container">
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-3 mb-3">
+                                                <label for="status">Status</label>
+                                                <input type="text" style ="text-transform: capitalize" class="form-control" id="status" name="status" minlength="1" maxlength="30" placeholder="" required>
+                                              </div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="location">Location</label>
+                                                <input type="text" class="form-control" id="location" name="location"  placeholder="">
+                                              </div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="type">Type of Event</label>
+                                                <input type="text" class="form-control" id="type" name="type" class="form-control" placeholder="" required>
+                                              </div>
+                                            </div><br>
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-2 mb-3">
+                                                <label for="startTime">Start Time</label>
+                                                <input type="time" class="form-control" id="startTime" name="startTime" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="endTime">End Time</label>
+                                                <input type="time" class="form-control" id="endTime" name="endTime" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="startDate">Start Date</label>
+                                                 <input type="date" class="form-control" id="startDate" name="startDate" placeholder="mm/dd/yyyy"  value="" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="endDate">End Date</label>
+                                                 <input type="date" class="form-control" id="endDate" name="endDate" placeholder="mm/dd/yyyy"  value="" required>
+                                              </div>
+                                            </div><br>
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-9 mb-3">
+                                                <label for="plateNumber">Description</label>
+                                               <textarea class ="form-control" id="id-description" name="description" required="required" rows="6" col="10" maxlength="5000" minlength="5" style="resize: none;"></textarea>
+                                              </div>
+                                            </div>  
+                                            <br>
+                                            <div class="row" style="width: 1200">                     
+                                                <div class = "col-sm-5">
+                                                    <label>Organizer</label>
+                                                    <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="Organizer Name" value =""}>
+                                                </div>
+                                                <div class = "col-sm-4">
+                                                    <label>Number of Participants</label>
+                                                    <input name ="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="" required>
+                                                </div>
+                                        </div>
+                                            <br><br>
+            
+                                        </div>    
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">BACK</button>
+                                        <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">JOIN</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+        </div> 
+    </div>
+</div>
+</body>
+</html>

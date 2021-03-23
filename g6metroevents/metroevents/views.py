@@ -77,10 +77,9 @@ class OrganizerDashboardEventListView(View):
 	        else:
 	            print(form.errors)
 	            return HttpResponse('not valid')
-
-
-
-
+class OrganizerMyEvents(View):
+        def get(self, request):
+            return render(request, 'organizerMyEvents.html')
 
 class EventsView(View):
         def get(self, request):
