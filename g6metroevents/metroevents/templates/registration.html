@@ -21,34 +21,34 @@
     <div class="form">
        <div class="inputfield">
           <label>Username</label>
-          <input type="text" id = "id-username" name="username" class="input" required>
+          <input type="text" id = "username" name="username" class="input" required>
        </div>
        <div class="inputfield">
           <label>Password</label>
-          <input type="text" id = "id-password" name="password" class="input" required>
+          <input type="text" id = "password" name="password" class="input" required>
        </div> 
        <div class="inputfield">
           <label>First Name</label>
-          <input type="text" id = "id-firstname" name="firstname" class="input" required>
+          <input type="text" id = "firstname" name="firstname" class="input" required>
        </div>
        <div class="inputfield">
           <label>Middle Name</label>
-          <input type="text" id = "id-middlename" name="middlename" class="input" required>
+          <input type="text" id = "middlename" name="middlename" class="input" required>
        </div>
        <div class="inputfield">
           <label>Last Name</label>
-          <input type="text" id = "id-lastname" name="lastname" class="input" required>
+          <input type="text" id = "lastname" name="lastname" class="input" required>
        </div>  
         <div class="inputfield">
           <label>Email</label>
-          <input type="text" id = "id-email"name="email" class="input" required>
+          <input type="text" id = "email"name="email" class="input" required>
        </div>  
        <div class="inputfield">
          <input type="number" class="input" name="isDeleted" value="0" hidden="">
        </div>
       <center>
         <a type = "button" class="btn btn-secondary" id="id_registration" href="{% url 'metroevents:userDashboard_eventLists_view' %}" >CANCEL</a>
-        <button type="submit" class="btn btn-primary">REGISTER</button>
+        <button type="submit" class="btn btn-primary" name="btn_register">REGISTER</button>
      </center>
     </div>
   </form>

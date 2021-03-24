@@ -1,7 +1,7 @@
 
 from django.views.generic import View, TemplateView
-from .forms import UserForm
-from .forms import EventForm
+# from .forms import UserForm
+# from .forms import EventForm
 from django.http import Http404
 from django.shortcuts import render,redirect
 from django.views.generic import View
@@ -18,29 +18,47 @@ class UserRegistrationView(View):
         def get(self, request):
             return render(request, 'registration.html')
 
-        def post(self, request):       
-	        form = UserForm(request.POST)
+        def post(self, request):
+        	if 'btn_register' in request.POST:
+        		print("register")
+        		username = request.POST.get('username')
+        		password = request.POST.get('password')
+        		# passwordRepeat = request.POST.get('password-repeat')
+        		email = request.POST.get('email')
+        		firstname = request.POST.get('firstname')
+        		lastname = request.POST.get('lastname')
 
-	        if form.is_valid():
-	            #try
-	            uname = request.POST.get("username")
-	            userpass = request.POST.get("password")
-	            fname = request.POST.get("firstname")
-	            mname = request.POST.get("middlename")
-	            lname = request.POST.get("lastname")
-	            email = request.POST.get("email")
-	            form = User(username = uname, password = userpass, firstname = fname, middlename = mname, lastname = lname, email = email)
+        		if not User.objects.filter(username=username).exists(): 
+        			if not User.objects.filter(email=email).exists():
+        				User.objects.create_user(first_name = firstname, last_name = lastname, username = username, email = email, password = password)
+        				return redirect('metroevents:index')
+        			else:   
+        				return HttpResponse('email exists') 
+        		else:
+        			return HttpResponse('Username exists')
 
-	            form.save()
+        	# form = UserForm(request.POST)
 
-	            return redirect('metroevents:index')
+	        # if form.is_valid():
+	        #     #try
+	        #     uname = request.POST.get("username")
+	        #     userpass = request.POST.get("password")
+	        #     fname = request.POST.get("firstname")
+	        #     mname = request.POST.get("middlename")
+	        #     lname = request.POST.get("lastname")
+	        #     email = request.POST.get("email")
+	        #     form = User(username = uname, password = userpass, firstname = fname, middlename = mname, lastname = lname, email = email)
+
+	        #     form.save()
+
+	        #     return redirect('metroevents:index')
 	          
-	            # except:
-	            #   raise Http404
+	        #     # except:
+	        #     #   raise Http404
 	            
-	        else:
-	            print(form.errors)
-	            return HttpResponse('not valid')
+	        # else:
+	        #     print(form.errors)
+	        #     return HttpResponse('not valid')
 
 
 class AdministratorView(View):

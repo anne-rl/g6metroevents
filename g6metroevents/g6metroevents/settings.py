@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'g6metroevents.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'group6metroevents',
         'USER': 'group6@group6-db',
         'PASSWORD': 'ferolinorepuntelabasanmagno6DB',
