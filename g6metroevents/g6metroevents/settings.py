@@ -70,14 +70,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'g6metroevents.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'group6metroevents',
+        'NAME': 'group6metroevents_db',
         'USER': 'group6@group6-db',
         'PASSWORD': 'ferolinorepuntelabasanmagno6DB',
         'HOST': 'group6-db.mysql.database.azure.com',
