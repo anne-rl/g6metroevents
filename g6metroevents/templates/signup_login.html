@@ -1,0 +1,79 @@
+{% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'css/signup_login.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+<div class="row">
+   <div class="col-md-6 mx-auto p-0">
+      <div class="card">
+         <div class="login-box">
+            <div class="login-snip">
+               <a type = "submit" id="id_registration" href="{% url 'user:landing' %}"><i style="font-size:24px; color:#F45B69;" class="fa">&#xf100;</i></a>
+               <br>
+               <br>
+               <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Login</label> <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+               <div class="login-space">
+                  <!-- LOGIN -->
+                  <div class="login">
+                     <form method="POST">
+                        {% csrf_token %}
+                        <div class="group"> 
+                           <label for="user" class="label">Username</label> 
+                           <input id="user" type="text" class="input" placeholder="Enter your username" name="username"> 
+                        </div>
+                        <div class="group"> 
+                           <label for="pass" class="label">Password</label> 
+                           <input id="pass" type="password" class="input" data-type="password" placeholder="Enter your password" name="password"> 
+                        </div>
+                        <div class="group"> 
+                           <input id="check" type="checkbox" class="check" checked>
+                           <label for="check"><span class="icon"></span> Keep me Signed in</label> 
+                        </div>
+                        <center><label class="text-danger">{{msg}}</label></center>
+                        <br>
+                        <div class="group"> 
+                           <input type="submit" class="button" value="Log In" name="btn-login"> 
+                        </div>
+                        <div class="hr"></div>
+                        <div class="foot"> <a href="#">Forgot Password?</a> </div>
+                     </form>
+                  </div>
+                  <div class="sign-up-form">
+                     <form method="POST">
+                        {% csrf_token %}
+                        <div class="group"> 
+                           <label for="pass" class="label">Firstname</label> 
+                           <input id="pass" type="text" class="input" placeholder="Firstname" name="firstname" required> 
+                        </div>
+                        <div class="group"> 
+                           <label for="pass" class="label">Lastname</label> 
+                           <input id="pass" type="text" class="input" placeholder="Lastname" name="lastname" required> 
+                        </div>
+                        <div class="group"> 
+                           <label for="pass" class="label">Email Address</label> 
+                           <input id="pass" type="text" class="input" placeholder="Enter your email address" name="email" required> 
+                        </div>
+                        <div class="group"> 
+                           <label for="user" class="label">Username</label> 
+                           <input id="user" type="text" class="input" placeholder="Create your Username" name="username" required>  
+                        </div>
+                        <div class="group"> 
+                           <label for="pass" class="label">Password</label> 
+                           <input id="pass" type="password" class="input" data-type="password" placeholder="Create your password" name="password" required> 
+                        </div>
+                        <div class="group"> 
+                           <label for="pass" class="label">Repeat Password</label> 
+                           <input id="pass" type="password" class="input" data-type="password" placeholder="Repeat your password" name="password-repeat" required> 
+                        </div>
+                        <div class="group"> <input type="submit" class="button" value="Sign Up" name="btn-register"> </div>
+                        <div class="hr"></div>
+                        <div class="foot"> <label for="tab-1">Already Member?</label> </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,364 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+   <head>
+      {% block headerinclude %}
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>ORGANIZER DASHBOARD</title>
+      <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
+      {% endblock headerinclude %} 
+   </head>
+   <style>
+      .close {
+      color: #ffffff;
+      }
+      .modal-dialog {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      }
+   </style>
+   <body style="background: #E4FDE1">
+      {% block content %}
+      <nav class="navbar navbar-default navbar-static-top" style="background-color: #1C2541; border-color: #1C2541;">
+         <div class="container-fluid">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand" href="#" style="color:#ffffff;">
+               ORGANIZER DASHBOARD
+               </a> 
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav navbar-right">
+                  <li><a href="#">{{user.first_name}} {{user.last_name}}</a></li>
+                  <li>
+                     <a href="o-notifications" class="notification" style="color:#ffffff;"> <span>Notifications</span> <span class="badge">{{notifcount}}</span> </a>
+                  </li>
+                   <li><a href="logout" style="color:#ffffff;">Logout</a></li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+      <!--
+         <div style="background:#c4c4ff; height:30px; width:100%">
+             <center><h3 style="vertical-align: middle">ORGANIZER DASHBOARD</h3></center>
+         </div><br><br>
+         -->
+      <div class="container-fluid">
+         <div class="col col-md-3">
+            <div class="panel-group" id="accordion">
+               <br>
+               <div class="panel panel-default">
+                  <div class="panel-heading" style="background-color: #F45B69; border-color: #F45B69; color:#ffffff;">
+                     <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        Events</a>
+                     </h4>
+                  </div>
+                  <div id="collapse1" class="panel-collapse collapse in">
+                     <ul class="list-group">
+                        <li class="list-group-item">Events List</li>
+                        <li class="list-group-item"><a href="o-concluded">Concluded Events</a><span class="badge">{{concludedEvents}}</span> </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="panel panel-default">
+                  <div class="panel-heading" style="background-color: #F45B69; border-color: #F45B69; color:#ffffff;">
+                     <h4 class="panel-title">
+                        <a data-toggle="modal" data-target="#modalAdminRequest" data-parent="#accordion" href="#collapse3">Be An Administrator</a>
+                     </h4>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--Table--->
+         <div class="col col-md-9">
+            <div id="card-header" class="card-header bg-dark text-light">
+               <button type="button" class="btn btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalAddEvent"
+               style="float:right; background-color:#F45B69; border-color:#F45B69; color:#ffffff;">
+                  <i class="fa fa-plus">ADD EVENT</i>
+               </button>
+               <h1 class="text-center" style="font-weight: 500;">MY EVENTS</h1>
+            </div>
+            <table class="table table-hover">
+               <thead>
+                  <tr>
+                     <th scope="col">Event Name</th>
+                     <th scope="col">Type</th>
+                     <th scope="col">Status</th>
+                     <th scope="col">Start</th>
+                     <th scope="col">End</th>
+                     <th scope="col">Participants</th>
+                     <th scope="col">Details</th>
+                     <th scope="col">Requests</th>
+                     <th scope="col">Cancel</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for event in events %}
+                  <tr>
+                     <td>{{event.name}}</td>
+                     <td>{{event.type}}</td>
+                     <td>{{event.status}}</td>
+                     <td>{{event.startDateTime}}</td>
+                     <td>{{event.endDateTime}}</td>
+                     <td>{{event.participantsCount}}</td>
+                     <td class="align-middle">
+                        <button type="button" class="btn btn-xs" id="viewBtn" style="background-color:#028090; border-color: #028090; color: #ffffff;" data-toggle="modal" data-target="#modalView-{{event.id}}"><i class="fa fa-eye"></i>Details</button>
+                     </td>
+                     <td class="align-middle">
+                        <button type="button" class="btn btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalJoinReq-{{event.id}}" style="background-color: #1C2541; border-color: #1C2541; color: #ffffff;"><i class="fa fa-exclamation-circle"></i>Join Requests</button>
+                     </td>
+                     <td class="align-middle">
+                        <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalCancel-{{event.id}}" style="background-color:#F45B69; border-color: #F45B69; color:#ffffff;"><i class="fa fa-trash"></i>CANCEL</button>
+                     </td>
+                  </tr>
+                  
+     
+                  <!-- Modal VIEW-->
+                  <div class="modal fade" id="modalView-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                              <h5 class="modal-title">{{event.name}} Details</h5>
+                           </div>
+                           <form id="updateForm" method="post" enctype="multipart/form-data">
+                              {% csrf_token %}
+                              <div class="modal-body bg-dark text-light">
+                                 <!-- <div class="row">
+                                    {% for organizer in organizers %} {% for user in users %} {% if organizer.user_id == user.id %} {% if organizer.id == event.organizer_id %}
+                                    <div class="col-sm-8">
+                                       <label>Organizer</label>
+                                       <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="" value="{{user.first_name}} {{user.last_name}}"> 
+                                    </div>
+                                    {% endif %} {% endif %} {% endfor %} {% endfor %} 
+                                 </div> -->
+                                 <div class="row">
+                                    <div class="col-sm-4">
+                                       <label>Event Name</label>
+                                       <input name="name" type="text" max="255" class="form-control" id="name" placeholder="" value="{{event.name}}" }> 
+                                    </div>
+                                    <div class="col-sm-4">
+                                       <label>Event Type</label>
+                                       <input name="type" id="type" type="int" placeholder="" class="form-control" max="100" value="{{event.type}}" required> 
+                                    </div>
+                                    <div class="col-sm-4">
+                                       <input name="eventID" id="eventID" type="hidden" placeholder="" class="form-control" value="{{event.id}}"> 
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-sm-4">
+                                       <label>Start</label>
+                                       <input name="startdate" type="datetime-local" class="form-control" id="startdate" placeholder="sgs" value="{{event.startDateTime|date:'Y-m-d\TH:i:s'}}"> 
+                                    </div>
+                                    <div class="col-sm-4">
+                                       <label>End</label>
+                                       <input name="endDate" id="endDate" type="datetime-local" placeholder="" class="form-control" max="100" value="{{event.endDateTime|date:'Y-m-d\TH:i:s'}}"> 
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <center>
+                                       <strong>
+                                          <p>&nbsp;&nbsp;&nbsp;&nbsp;Description</p>
+                                       </strong>
+                                       <textarea id="description" name="description" rows="8" cols="100" style="width: 95%;"> {{event.description}}</textarea>
+                                    </center>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-sm-4">
+                                       <label>Current Participants Count</label>
+                                       <input name="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="{{event.participantsCount}}" readonly> 
+                                    </div>
+                                    <div class="col-sm-4">
+                                       <label>Status</label>
+                                       <input name="status" id="status" type="int" placeholder="" class="form-control" max="100" value="{{event.status}}"> 
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn" data-dismiss="modal" style="background-color:#F45B69; color:#ffffff;">BACK</button>
+                                 <button type="submit" id="btnUpdate" name="btnUpdate" class="btn" style="background-color:#028090; color:#ffffff;">UPDATE</button>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+
+                  <!-- Modal Join Requests-->
+                  <div class="modal fade" id="modalJoinReq-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                              <h5 class="modal-title">{{event.name}} - Join Requests</h5>
+                           </div>
+                              {% for request in requests %}
+                              {% if request.event.id == event.id %}
+                              <div class="modal-body bg-dark text-light">
+                                 <form method="POST">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                       <div class="col-sm-12">
+                                          <strong>
+                                             <p>{{request.user.first_name}} {{request.user.last_name}}</p>
+                                          </strong>
+                                       </div>
+                                       <div class="col-sm-2" hidden>
+                                          <input name="requestID" id="requestID" type="int" placeholder="" class="form-control"  max="100" value="{{request.id}}"> 
+                                       </div>
+                                       <div class="col-sm-6">
+                                          <br>
+                                          <button type="submit" class="btn btn-xs" id="btnAcceptRequest" name="btnAcceptRequest" data-toggle="modal" data-target="#modalRemoveReason" style="background-color:#028090; border-color:#028090; color:#ffffff;">Accept</button>
+                                       </div>
+                                       <div class="col-sm-6">
+                                          <br>
+                                          <button type="submit" class="btn btn-xs" id="btnDeclineRequest" name="btnDeclineRequest" data-toggle="modal" data-target="#modalRemoveReason" style="background-color:#F45B69; border-color:#F45B69; color:#ffffff;">Decline</button>
+                                       </div>
+                                    </div>
+                                 </form>
+                              </div>
+                              {% endif %}
+                              {% endfor %}
+                              <div class="modal-footer">
+                                 <button type="button" class="btn" data-dismiss="modal" style="background-color:#1C2541; border-color:#1C2541; color:#ffffff;">CLOSE</button>
+                              </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Modal Cancel Event-->
+                  <div class="modal fade" id="modalCancel-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                              <h5 class="modal-title">CANCEL {{event.name}}</h5>
+                           </div>
+                           <form id="cancelForm" method="post">
+                              {% csrf_token %}
+                              <div class="modal-body bg-dark text-light">
+                                 <div class="col-sm-2" hidden>
+                                    <input name="eventID" id="eventID" type="int" placeholder="" class="form-control"  max="100" value="{{event.id}}"> 
+                                 </div>
+                                 <strong>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp; Reason of Cancellation</p>
+                                 </strong>
+                                 <center>
+                                    <textarea id="reason" name="reason" rows="8" cols="100" style="width: 95%;"> </textarea>
+                                 </center>
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn" data-dismiss="modal" style="background-color:#F45B69; color:#ffffff;">BACK</button>
+                                 <button type="submit" id="btnCancel" name="btnCancel" class="btn" style="background-color:#028090; color:#ffffff;">PROCEED</button>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  
+                  </div>
+
+                  {% endfor %} 
+               </tbody>
+            </table>
+            <div id="card-header" class="card-header bg-dark text-light">
+               <h6 class="text-center" style="font-weight: 100;">This is a list of events. You can create your own by the "ADD EVENT" button</h6>
+            </div>
+         </div>
+      </div>
+
+      <!-- Modal ADD EVENT-->
+      <div class="modal fade" id="modalAddEvent" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+         <div class="modal-content">
+            <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+               <h5 class="modal-title">CREATE EVENT</h5>
+            </div>
+            <form id="addForm" method="post" enctype="multipart/form-data">
+               {% csrf_token %}
+               <div class="modal-body bg-dark text-light">
+                  <div class="row">
+                     <div class="col-sm-8">
+                        <label>Organizer</label>
+                        <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="Organizer Name" value="{{user.first_name}} {{user.last_name}}" readonly> 
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-4">
+                        <label>Event Name</label>
+                        <input name="name" type="text" max="255" class="form-control" id="name" placeholder="Event Name" value="" }> 
+                     </div>
+                     <div class="col-sm-4">
+                        <label>Event Type</label>
+                        <input name="type" id="type" type="text" placeholder="" class="form-control" max="100" value="" required> 
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-4">
+                        <label>Start</label>
+                        <input name="startdate" type="datetime-local" class="form-control" id="startdate" placeholder="" value="" }> 
+                     </div>
+                     <div class="col-sm-4">
+                        <label>End</label>
+                        <input name="endDate" id="endDate" type="datetime-local" placeholder="" class="form-control" max="100" value="" required> 
+                     </div>
+                  </div>
+                  <div class="row">
+                     <strong>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Description</p>
+                     </strong>
+                     <center>
+                        <textarea id="description" name="description" rows="8" cols="100" style="width: 95%;"></textarea>
+                     </center>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn" data-dismiss="modal" style="background-color:#F45B69; border-color:#F45B69; color:#ffffff;">CANCEL</button>
+                  <button type="submit" id="btnAdd" name="btnAdd" class="btn" style="background-color:#028090; border-color:#028090; color:#ffffff;">ADD</button>
+               </div>
+            </form>
+         </div>
+      </div>
+      </div>
+
+      <!-- Modal Admin Request-->
+      <div class="modal fade" id="modalAdminRequest" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+               <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                  <b>
+                     <h5 class="modal-title">REQUEST TO BE ADMINISTRATOR</h5>
+                  </b>
+               </div>
+               <div class="modal-body">
+                  <div class="row">
+                     <div class="col-sm-12">
+                        <br>
+                        <center> Be one of the Administrators </center>
+                        <br> 
+                     </div>
+                     <div class="col-sm-12">
+                        <form method="POST">
+                           {% csrf_token %}
+                           <center>
+                              <button type="button" class="btn" data-dismiss="modal" style="background-color:#F45B69; border-color:#F45B69; color:#ffffff;">CANCEL</button> &nbsp; &nbsp; &nbsp;
+                              <button type="submit" id="btnAdminRoleRequest" name="btnAdminRoleRequest" class="btn" style="background-color:#028090; border-color:#028090; color:#ffffff;">SUBMIT</button>
+                           </center>
+                        </form>
+                        <br>
+                        <br> 
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      {% endblock content %} 
+   </body>
+</html>

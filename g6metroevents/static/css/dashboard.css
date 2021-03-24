@@ -1,0 +1,247 @@
+   
+        {% block headerinclude%}
+
+        	body {
+                background-color: #f8bd9e;
+        		font-family: 'Varela Round', sans-serif;
+        	}
+            .form-inline {
+                display: inline-block;
+            }
+        	.navbar {
+        		color: #fff;
+        		background: #162b29;
+        		padding: 5px 16px;
+        		border-radius: 0;
+        		border: none;
+        		box-shadow: 0 0 4px rgba(0,0,0,.1);
+        	}
+        	.navbar img {
+        		border-radius: 50%;
+        		width: 36px;
+        		height: 36px;
+        		margin-right: 10px;
+        	}
+        	.navbar .navbar-brand {
+        		color: #efe5ff;
+        		padding-left: 0;
+        		padding-right: 50px;
+        		font-size: 24px;		
+        	}
+        	.navbar .navbar-brand:hover, .navbar .navbar-brand:focus {
+        		color: #fff;
+        	}
+        	.navbar .navbar-brand i {
+        		font-size: 25px;
+        		margin-right: 5px;
+        	}
+        	.navbar ul li i {
+        		font-size: 18px;
+        	}
+        	.navbar .nav-item span {
+        		position: relative;
+        		top: 3px;
+        	}
+        	.navbar .nav > li a {
+        		color: #efe5ff;
+        		padding: 8px 15px;
+        		font-size: 14px;		
+        	}
+        	.navbar .nav > li a:hover, .navbar .nav > li a:focus {
+        		color: #fff;
+        		text-shadow: 0 0 4px rgba(255,255,255,0.3);
+        	}
+        	.navbar .nav > li > a > i {
+        		display: block;
+        		text-align: center;
+        	}
+        	.navbar .nav .active a, .navbar .nav .active a:hover, .navbar .nav .active a:focus {
+        		color: #fff;
+        		text-shadow: 0 0 4px rgba(255,255,255,0.2);
+        		background: transparent !important;
+        	}
+        	.navbar .nav .user-action {
+        		padding: 9px 15px;
+        	}
+        	.navbar .navbar-toggle {
+        		border-color: #fff;
+        	}
+        	.navbar .navbar-toggle .icon-bar {
+        		background: #fff;
+        	}
+        	.navbar .navbar-toggle:focus, .navbar .navbar-toggle:hover {
+        		background: transparent;
+        	}
+        	.navbar .divider {
+        		background-color: #e9ecef !important;
+        	}
+        	@media (min-width: 1200px){
+        		.form-inline .input-group {
+        			width: 350px;
+        			margin-left: 30px;
+        		}
+        	}
+        	@media (max-width: 1199px){
+        		.navbar .nav > li > a > i {
+        			display: inline-block;			
+        			text-align: left;
+        			min-width: 30px;
+        			position: relative;
+        			top: 4px;
+        		}
+        		.navbar .navbar-collapse {
+        			border: none;
+        			box-shadow: none;
+        			padding: 0;
+        		}
+        		.navbar .navbar-form {
+        			border: none;			
+        			display: block;
+        			margin: 10px 0;
+        			padding: 0;
+        		}
+        		.navbar .navbar-nav {
+        			margin: 8px 0;
+        		}
+        		.navbar .navbar-toggle {
+        			margin-right: 0;
+        		}
+        		.input-group {
+        			width: 100%;
+        		}
+        	}
+
+        	/**data table **/
+        	.datatable{
+                color: #566787;
+                background: #fbda57;
+        		font-family: 'Roboto', sans-serif;
+        	}
+            .table-responsive {
+                margin: 30px 0;
+            }
+        	.table-wrapper {
+        		min-width: 1000px;
+                background: #ffe8e2;
+                padding: 20px;        
+                box-shadow: 0 1px 1px rgba(0,0,0,.05);
+            }
+        	.table-title {
+                padding-bottom: 10px;
+                margin: 0 0 10px;
+            }
+            .table-title h2 {
+                margin: 8px 0 0;
+                font-size: 22px;
+            }
+            table.table tr th, table.table tr td {
+                border-color: #e9e9e9;
+            }
+            table.table-striped tbody tr:nth-of-type(odd) {
+            	background-color: #fcfcfc;
+        	}
+        	table.table-striped.table-hover tbody tr:hover {
+        		background: #f5f5f5;
+        	}
+            table.table th i {
+                font-size: 13px;
+                margin: 0 5px;
+                cursor: pointer;
+            }
+            table.table td:last-child {
+                width: 130px;
+            }
+            table.table td a {
+                color: #a0a5b1;
+                display: inline-block;
+                margin: 0 5px;
+            }
+        	table.table td a.view {
+                color: #03A9F4;
+            }
+            table.table td a.delete {
+                color: #E34724;
+            }
+            table.table td i {
+                font-size: 19px;
+            }    
+         
+            /* Modal styles */
+        	.modal .modal-dialog {
+        		max-width: 800px;
+        	}
+        	.modal .modal-header, .modal .modal-body, .modal .modal-footer {
+        		padding: 20px 30px;
+        	}
+        	.modal .modal-content {
+        		border-radius: 3px;
+                background: #ffe8e2;
+        	}
+        	.modal .modal-footer {
+        		background:#ffe8e2;
+        		border-radius: 0 0 3px 3px;
+        	}
+            .modal .modal-title {
+                display: inline-block;
+            }
+        	.modal .form-control {
+        		border-radius: 2px;
+        		box-shadow: none;
+        		border-color: #ffe8e2;
+        	}
+        	.modal textarea.form-control {
+        		resize: vertical;
+        	}
+        	.modal .btn {
+        		border-radius: 2px;
+        		min-width: 100px;
+        	}	
+        	.modal form label {
+        		font-weight: bolder;
+        	}	
+            .button {
+              background-color: #fbda57;
+              color: black;
+              border: 2px solid #216a61;
+              padding: 4px 15px;
+              border-radius: 8px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 13px;
+            }
+            .button {
+              transition-duration: 0.4s;
+            }
+
+            .button:hover {
+              background-color: #216a61;
+              color: white;
+            }
+            .button span {
+              cursor: pointer;
+              display: inline-block;
+              position: relative;
+              transition: 0.5s;
+            }
+
+            .button span:after {
+              content: '\00bb';
+              position: absolute;
+              opacity: 0;
+              top: 0;
+              right: -20px;
+              transition: 0.5s;
+            }
+
+            .button:hover span {
+              padding-right: 25px;
+            }
+
+            .button:hover span:after {
+              opacity: 1;
+              right: 0;
+            }
+        
+        
+{% block headerinclude%}

@@ -20,7 +20,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('metroevents/', include('metroevents.urls', namespace='metroevents')),
+    path('user/', include('metroevents.urls', namespace='user')),
     
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

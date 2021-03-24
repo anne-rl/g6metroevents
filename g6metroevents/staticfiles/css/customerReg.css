@@ -1,0 +1,263 @@
+body {
+        background-color: #216a61;
+		font-family: 'Varela Round', sans-serif;
+	}
+    .form-inline {
+        display: inline-block;
+    }
+	.navbar {
+		color: #fff;
+		background: #162b29;
+		padding: 5px 16px;
+		border-radius: 0;
+		border: none;
+		box-shadow: 0 0 4px rgba(0,0,0,.1);
+	}
+	.navbar img {
+		border-radius: 50%;
+		width: 36px;
+		height: 36px;
+		margin-right: 10px;
+	}
+	.navbar .navbar-brand {
+		color: #efe5ff;
+		padding-left: 0;
+		padding-right: 50px;
+		font-size: 24px;		
+	}
+	.navbar .navbar-brand:hover, .navbar .navbar-brand:focus {
+		color: #fff;
+	}
+	.navbar .navbar-brand i {
+		font-size: 25px;
+		margin-right: 5px;
+	}
+	.search-box {
+        position: relative;
+    }	
+    .search-box input {
+        padding-right: 35px;
+		min-height: 38px;
+		border: none;
+		background: #faf7fd;
+        border-radius: 3px !important;
+    }
+	.search-box input:focus {		
+		background: #fff;
+		box-shadow: none;
+	}
+	.search-box .input-group-addon {
+        min-width: 35px;
+        border: none;
+        background: transparent;
+        position: absolute;
+        right: 0;
+        z-index: 9;
+        padding: 10px 7px;
+		height: 100%;
+    }
+    .search-box i {
+        color: #a0a5b1;
+		font-size: 19px;
+    }
+	.navbar ul li i {
+		font-size: 18px;
+	}
+	.navbar .nav-item span {
+		position: relative;
+		top: 3px;
+	}
+	.navbar .nav > li a {
+		color: #efe5ff;
+		padding: 8px 15px;
+		font-size: 14px;		
+	}
+	.navbar .nav > li a:hover, .navbar .nav > li a:focus {
+		color: #fff;
+		text-shadow: 0 0 4px rgba(255,255,255,0.3);
+	}
+	.navbar .nav > li > a > i {
+		display: block;
+		text-align: center;
+	}
+	.navbar .dropdown-menu i {
+		font-size: 16px;
+		min-width: 22px;
+	}
+    .navbar .dropdown-menu .material-icons {
+        font-size: 21px;
+        line-height: 16px;
+        vertical-align: middle;
+        margin-top: -2px;
+    }
+	.navbar .dropdown.open > a, .navbar .dropdown.open > a:hover, .navbar .dropdown.open > a:focus {
+		color: #fff;
+		background: none !important;
+	}
+	.navbar .dropdown-menu {
+		border-radius: 1px;
+		border-color: #e5e5e5;
+		box-shadow: 0 2px 8px rgba(0,0,0,.05);
+	}
+	.navbar .dropdown-menu li a {
+		color: #777 !important;
+		padding: 8px 20px;
+		line-height: normal;
+	}
+	.navbar .dropdown-menu li a:hover, .navbar .dropdown-menu li a:focus {
+		color: #333 !important;
+		background: transparent !important;
+	}
+	.navbar .nav .active a, .navbar .nav .active a:hover, .navbar .nav .active a:focus {
+		color: #fff;
+		text-shadow: 0 0 4px rgba(255,255,255,0.2);
+		background: transparent !important;
+	}
+	.navbar .nav .user-action {
+		padding: 9px 15px;
+	}
+	.navbar .navbar-toggle {
+		border-color: #fff;
+	}
+	.navbar .navbar-toggle .icon-bar {
+		background: #fff;
+	}
+	.navbar .navbar-toggle:focus, .navbar .navbar-toggle:hover {
+		background: transparent;
+	}
+	.navbar .navbar-nav .open .dropdown-menu {
+		background: #faf7fd;
+		border-radius: 1px;
+		border-color: #faf7fd;
+		box-shadow: 0 2px 8px rgba(0,0,0,.05);
+	}
+	.navbar .divider {
+		background-color: #e9ecef !important;
+	}
+	@media (min-width: 1200px){
+		.form-inline .input-group {
+			width: 350px;
+			margin-left: 30px;
+		}
+	}
+	@media (max-width: 1199px){
+		.navbar .nav > li > a > i {
+			display: inline-block;			
+			text-align: left;
+			min-width: 30px;
+			position: relative;
+			top: 4px;
+		}
+		.navbar .navbar-collapse {
+			border: none;
+			box-shadow: none;
+			padding: 0;
+		}
+		.navbar .navbar-form {
+			border: none;			
+			display: block;
+			margin: 10px 0;
+			padding: 0;
+		}
+		.navbar .navbar-nav {
+			margin: 8px 0;
+		}
+		.navbar .navbar-toggle {
+			margin-right: 0;
+		}
+		.input-group {
+			width: 100%;
+		}
+	}
+	.container{
+		color: #fff;
+		background: #216a61;
+		font-family: 'Roboto', sans-serif;
+	}
+    .form-control{
+		height: 40px;
+		box-shadow: none;
+		color: #969fa4;
+	}
+	.form-control:focus{
+		border-color: #5cb85c;
+	}
+    .form-control, .btn{        
+        border-radius: 3px;
+    }
+	.signup-form{
+		width: 1000px;
+		margin: 0 auto;
+		padding: 30px 0;
+	}
+	.signup-form h2{
+		color: #636363;
+        margin: 0 0 15px;
+		position: relative;
+		text-align: center;
+    }
+	.signup-form h2:before, .signup-form h2:after{
+		content: "";
+		height: 2px;
+		width: 30%;
+		background: #d4d4d4;
+		position: absolute;
+		top: 50%;
+		z-index: 2;
+	}	
+	.signup-form h2:before{
+		left: 0;
+	}
+	.signup-form h2:after{
+		right: 0;
+	}
+    .signup-form .hint-text{
+		color: #999;
+		margin-bottom: 30px;
+		text-align: center;
+	}
+    .signup-form form{
+		color: #216a61;
+		border-radius: 3px;
+    	margin-bottom: 15px;
+        background: #f2f3f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+	.signup-form .form-group{
+		margin-bottom: 10px;
+	}
+	.signup-form input[type="checkbox"]{
+		margin-top: 3px;
+	}
+	.signup-form .btn{        
+        font-size: 16px;
+        font-weight: bold;		
+		min-width: 140px;
+        outline: none !important;
+    }
+	.signup-form .row div:first-child{
+		padding-right: 10px;
+	}
+	.signup-form .row div:last-child{
+		padding-left: 10px;
+	}    	
+    .signup-form a{
+		color: #fff;
+		text-decoration: underline;
+	}
+    .signup-form a:hover{
+		text-decoration: none;
+	}
+	.signup-form form a{
+		color: #5cb85c;
+		text-decoration: none;
+	}	
+	.signup-form form a:hover{
+		text-decoration: underline;
+	}  
+	
+	.medicine{
+		margin-right: 500px;
+	}  
+	

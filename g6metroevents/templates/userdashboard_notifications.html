@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+   <head>
+      {% block headerinclude %}
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>USER DASHBOARD</title>
+      <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      {% endblock headerinclude %}
+   </head>
+   <style>
+      .close {
+      color: #ffffff;
+      }
+      .modal-dialog {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      }
+   </style>
+   <body style="background: #E4FDE1">
+      {% block content %}
+      <nav class="navbar navbar-default navbar-static-top" style="background-color: #1C2541; border-color: #1C2541;">
+         <div class="container-fluid">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand" href="#" style="color:#ffffff;">
+               METRO EVENTS
+               </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav navbar-right">
+                  <li><a href="#" style="color:#ffffff;">{{username}}</a></li>
+                  <li>
+                     <a href="notifications" class="notification" style="color:#ffffff;">
+                     <span>Notifications</span>
+                     <span class="badge">{{notifcount}}</span>
+                     </a>
+                  </li>
+                  <li><a href="logout" style="color:#ffffff;">Logout</a></li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+      <div class="container-fluid">
+         <div class="col col-md-3">
+            <br>
+            <div class="panel-group" id="accordion">
+               <div class="panel panel-default">
+                  <div class="panel-heading" style="background-color: #F45B69; border-color: #F45B69; color:#ffffff;">
+                     <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        Events</a>
+                     </h4>
+                  </div>
+                  <div id="collapse1" class="panel-collapse collapse in">
+                     <ul class="list-group">
+                        <li class="list-group-item"><a href="eventlist">Events List</a></li>
+                        <li class="list-group-item"><a href="joinedevents">Joined Events</a><span class="badge">0</span> </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--Table--->
+         <div class="col col-md-9">
+            <div id="card-header" class="card-header bg-dark text-light">
+               <h1 class="text-center" style="font-weight: 500;">NOTIFICATIONS</h1>
+               <br>
+            </div>
+            <table class="table table-hover">
+               <thead>
+                  <tr>
+                     <th scope="col">Title</th>
+                     <th scope="col">Type</th>
+                     <th scope="col">Date and Time</th>
+                     <th scope="col"></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for notif in notifications %}
+                  <tr>
+                     <td>{{notif.title}}</td>
+                     <td>{{notif.notifType}}</td>
+                     <td>{{notif.sentDateTime}}</td>
+                     <td class="align-middle">
+                        <button type="button" class="btn btn-success btn-xs" id="btnDetails"data-toggle="modal" data-target="#modalView-{{notif.id}}" style="background-color:#028090; border-color: #028090;"><i class="fa fa-eye"></i>Details</button>
+                  </tr>
+
+                  <!-- Modal VIEW-->
+                  <div class="modal fade" id="modalView-{{notif.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>    
+                              <h5 class="modal-title">NOTIFICATION</h5>
+                           </div>
+                              <div class="modal-body bg-dark text-light">
+                                 <div class = "row">
+                                    <strong>
+                                       <p>&nbsp;&nbsp;&nbsp;&nbsp;Notification Description</p>
+                                    </strong>
+                                    <center>
+                                       <textarea id="description" name="description" rows="8" cols="100" style="width: 95%;" readonly>
+                                          {{notif.description}}
+                                       </textarea>
+                                    </center>
+                                 </div>
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" id="btnOk" name="btnOk" class="btn btn-primary"style="background-color:#028090; color:#ffffff;">Ok</button>
+                              </div>
+                        </div>
+                     </div>
+                  </div>
+                  {% endfor %}
+               </tbody>
+            </table>
+            <div id="card-header" class="card-header bg-dark text-light">
+               <h6 class="text-center" style="font-weight: 100;"></h6>
+            </div>
+      {% endblock content %}
+   </body>
+</html>
