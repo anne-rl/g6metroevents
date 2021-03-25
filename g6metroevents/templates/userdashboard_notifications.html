@@ -1,82 +1,65 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
-   <head>
-      {% block headerinclude %}
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>USER DASHBOARD</title>
-      <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs jquery/3.5.1/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-      {% endblock headerinclude %}
-   </head>
-   <style>
-      .close {
-      color: #ffffff;
-      }
-      .modal-dialog {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      }
-   </style>
-   <body style="background: #E4FDE1">
-      {% block content %}
-      <nav class="navbar navbar-default navbar-static-top" style="background-color: #1C2541; border-color: #1C2541;">
-         <div class="container-fluid">
-            <div class="navbar-header">
-               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-               <span class="sr-only">Toggle navigation</span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               </button>
-               <a class="navbar-brand" href="#" style="color:#ffffff;">
-               METRO EVENTS
-               </a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-               <ul class="nav navbar-nav navbar-right">
-                  <li><a href="#" style="color:#ffffff;">{{username}}</a></li>
-                  <li>
-                     <a href="notifications" class="notification" style="color:#ffffff;">
-                     <span>Notifications</span>
-                     <span class="badge">{{notifcount}}</span>
-                     </a>
-                  </li>
-                  <li><a href="logout" style="color:#ffffff;">Logout</a></li>
-               </ul>
-            </div>
-         </div>
-      </nav>
+<head>
+   {% block headerinclude %}
+   <title>User Dashboard</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="shortcut icon" href="{% static 'media/metroEventsLogo.png' %}" />
+   <link rel="stylesheet" type="text/css" href="{% static 'css/userdashboard_eventList.css' %}">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   {% endblock headerinclude %}
+</head>
+<body>
+   {% block content %}
+   <img src="{% static 'media/logo.png' %}" width="505" height="130" class="center">
+   <nav class="navbar navbar-inverse">
       <div class="container-fluid">
-         <div class="col col-md-3">
-            <br>
-            <div class="panel-group" id="accordion">
-               <div class="panel panel-default">
-                  <div class="panel-heading" style="background-color: #F45B69; border-color: #F45B69; color:#ffffff;">
-                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                        Events</a>
-                     </h4>
-                  </div>
-                  <div id="collapse1" class="panel-collapse collapse in">
+         <!-- <div class="navbar-header">
+            <a class="navbar-brand" href="#">WebSiteName</a>
+         </div> -->
+         <ul class="nav navbar-nav">
+            <!-- <li class="active"><a href="#">Home</a></li> -->
+            <li class="active" class="dropdown">
+               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Events<span class="caret"></span></a>
+               <ul class="dropdown-menu">
+                  <li><a data-toggle="collapse" data-parent="#accordion" href="#collapse1" >Events List</a></li><!-- href="userDashboard_eventList"
+        <div id="collapse1" class="panel-collapse collapse in">
                      <ul class="list-group">
-                        <li class="list-group-item"><a href="eventlist">Events List</a></li>
-                        <li class="list-group-item"><a href="joinedevents">Joined Events</a><span class="badge">0</span> </li>
+                        <li class="list-group-item">Events List</li>
+                        <li class="list-group-item">
+                           <a href="joinedevents">Joined Events</a>
+                           <span class="badge">{{joinedEventsCount}}</span> 
+                        </li>
                      </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!--Table--->
-         <div class="col col-md-9">
-            <div id="card-header" class="card-header bg-dark text-light">
-               <h1 class="text-center" style="font-weight: 500;">NOTIFICATIONS</h1>
+                  </div> -->
+         {% if not isOrganizer == "true" %}
+          <li><a data-toggle="modal" data-target="#modalOrgRequest" data-parent="#accordion" href="#collapse3"> Organize Events</a></li>{% endif %}
+          <li><a data-toggle="modal" data-target="#modalAdminRequest" data-parent="#accordion" href="#collapse3"> Administrator Events</a></li>
+        </ul>
+      </li><!-- 
+      <li><a href="#">Page 2</a></li>
+      <li><a href="#">Page 3</a></li> -->
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li> <a href="notifications" class="notification"> <span>Notifications</span> <span class="badge">{{notifcount}}</span> </a> </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{username}}<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#myaccountModal">My Account</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+</div>
+</nav>
+<div class="container-fluid">
+    <!--Table--->
+    <div class="col col-md-12">
+        <div id="card-header" class="card-header bg-dark text-light">
+            <h1 class="text-center" style="font-weight: 500;">NOTIFICATIONS</h1>
                <br>
             </div>
             <table class="table table-hover">
@@ -121,7 +104,8 @@
                                  </div>
                               </div>
                               <div class="modal-footer">
-                                 <button type="button" id="btnOk" name="btnOk" class="btn btn-primary"style="background-color:#028090; color:#ffffff;">Ok</button>
+                                 <button type="button" id="btnOk" name="btnOk" class="btn btn-primary" data-dismiss="modal" style="background-color:#028090; color:#ffffff;">Ok</button>
+                                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button> -->
                               </div>
                         </div>
                      </div>
@@ -132,6 +116,6 @@
             <div id="card-header" class="card-header bg-dark text-light">
                <h6 class="text-center" style="font-weight: 100;"></h6>
             </div>
-      {% endblock content %}
-   </body>
+{% endblock content %}
+</body>
 </html>

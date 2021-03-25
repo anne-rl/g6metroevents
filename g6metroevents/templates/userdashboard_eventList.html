@@ -1,61 +1,33 @@
-<!DOCTYPE html> {% load static %}
+{% load static %}
+<!DOCTYPE html>
 <html lang="en">
-   <head>
-      {% block headerinclude %}
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>USER DASHBOARD</title>
-      <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs jquery/3.5.1/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-      <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
-      {% endblock headerinclude %} 
-   </head>
-   <style>
-      .close {
-      color: #ffffff;
-      }
-      .modal-dialog {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      }
-   </style>
-   <body style="background: #E4FDE1">
-      {% block content %}
-      <nav class="navbar navbar-default navbar-static-top" style="background-color: #1C2541; border-color: #1C2541;">
-         <div class="container-fluid">
-            <div class="navbar-header">
-               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand" href="#" style="color:#ffffff;">
-               METRO EVENTS
-               </a> 
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-               <ul class="nav navbar-nav navbar-right">
-                  <li><a href="#" style="color:#ffffff;">{{username}}</a></li>
-                  <li>
-                     <a href="notifications" class="notification" style="color:#ffffff;"> <span>Notifications</span> <span class="badge">{{notifcount}}</span> </a>
-                  </li>
-                  <li><a href="logout" style="color:#ffffff;">Logout</a></li>
-               </ul>
-            </div>
-         </div>
-      </nav>
+<head>
+   {% block headerinclude %}
+   <title>User Dashboard</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="shortcut icon" href="{% static 'media/metroEventsLogo.png' %}" />
+   <link rel="stylesheet" type="text/css" href="{% static 'css/userdashboard_eventList.css' %}">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   {% endblock headerinclude %}
+</head>
+<body>
+   {% block content %}
+   <img src="{% static 'media/logo.png' %}" width="505" height="130" class="center">
+   <nav class="navbar navbar-inverse">
       <div class="container-fluid">
-         <div class="col col-md-3">
-            <br>
-            <div class="panel-group" id="accordion">
-               <div class="panel panel-default">
-                  <div class="panel-heading" style="background-color: #F45B69; border-color: #F45B69; color:#ffffff;">
-                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                        Events</a>
-                     </h4>
-                  </div>
-                  <div id="collapse1" class="panel-collapse collapse in">
+         <!-- <div class="navbar-header">
+            <a class="navbar-brand" href="#">WebSiteName</a>
+         </div> -->
+         <ul class="nav navbar-nav">
+            <!-- <li class="active"><a href="#">Home</a></li> -->
+            <li class="active" class="dropdown">
+               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Events<span class="caret"></span></a>
+               <ul class="dropdown-menu">
+                  <li><a data-toggle="collapse" data-parent="#accordion" href="#collapse1" >Events List</a></li><!-- href="userDashboard_eventList"
+        <div id="collapse1" class="panel-collapse collapse in">
                      <ul class="list-group">
                         <li class="list-group-item">Events List</li>
                         <li class="list-group-item">
@@ -63,178 +35,395 @@
                            <span class="badge">{{joinedEventsCount}}</span> 
                         </li>
                      </ul>
-                  </div>
-               </div>
-
-               {% if not isOrganizer == "true" %}
-               <div class="panel panel-default">
-                  <div class="panel-heading" style="background-color: #F45B69; border-color: #F45B69; color:#ffffff;">
-                     <h4 class="panel-title">
-                        <a data-toggle="modal" data-target="#modalOrgRequest" data-parent="#accordion" href="#collapse3">Be An Organizer</a>
-                     </h4>
-                  </div>
-               </div>
-
-               {% endif %}
-               <div class="panel panel-default">
-                  <div class="panel-heading" style="background-color: #F45B69; border-color: #F45B69; color:#ffffff;">
-                     <h4 class="panel-title">
-                        <a data-toggle="modal" data-target="#modalAdminRequest" data-parent="#accordion" href="#collapse3">Be An Administrator</a>
-                     </h4>
-                  </div>
-               </div>
-
-            </div>
-         </div>
-         <!--Table--->
-         <div class="col col-md-9">
-            <div id="card-header" class="card-header bg-dark text-light">
-               <h1 class="text-center" style="font-weight: 600px;">LIST OF EVENTS</h1>
-               <br> 
-            </div>
-            <table class="table table-hover">
-               <thead>
-                  <tr>
-                     <th scope="col">Event Name</th>
+                  </div> -->
+         {% if not isOrganizer == "true" %}
+          <li><a data-toggle="modal" data-target="#modalOrgRequest" data-parent="#accordion" href="#collapse3"> Organize Events</a></li>{% endif %}
+          <li><a data-toggle="modal" data-target="#modalAdminRequest" data-parent="#accordion" href="#collapse3"> Administrator Events</a></li>
+        </ul>
+      </li><!-- 
+      <li><a href="#">Page 2</a></li>
+      <li><a href="#">Page 3</a></li> -->
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li> <a href="userDashboard_notifications" class="notification"> <span>Notifications</span> <span class="badge">{{notifcount}}</span> </a> </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{username}}<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#myaccountModal">My Account</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+</div>
+</nav>
+<div class="container-fluid">
+    <!--Table--->
+    <div class="col col-md-12">
+        <div id="card-header" class="card-header bg-dark text-light">
+            <h1 class="text-center" style="font-weight: 500;">List of Events</h1>
+        </div>
+        <h2 class="text-left" style="font-weight: 500;">On Going</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Event Name</th>
                      <th scope="col">Type</th>
-                     <th scope="col">Status</th>
                      <th scope="col">Start</th>
                      <th scope="col">End</th>
-                     <th scope="col">&nbsp;&nbsp;View</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  {% for event in events %}
+                     <th scope="col">&nbsp;&nbsp;More Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                {% if not status == "On Going" %}
                   <tr>
                      <td>{{event.name}}</td>
                      <td>{{event.type}}</td>
-                     <td>{{event.status}}</td>
                      <td>{{event.startDateTime}}</td>
                      <td>{{event.endDateTime}}</td>
-                     <td class="align-middle">
-                        <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalView-{{event.id}}" style="background-color:#028090; border-color: #028090;"><i class="fa fa-eye"></i> View</button>
-                  </tr>
-                  <!-- Modal VIEW-->
-                  <div class="modal fade" id="modalView-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
-                     <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                           <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
-                              <b>
-                                 <h5 class="modal-title">{{event.name}}</h5>
-                              </b>
-                           </div>
-                           <form id="updateForm" method="post">
-                              {% csrf_token %}
-                              <div class="modal-body bg-dark text-light">
-                                 <div class="row">
-                                    <strong>
-                                       <p>&nbsp;&nbsp;&nbsp;&nbsp;EVENT DESCRIPTION</p>
-                                    </strong>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <textarea id="w3review" name="w3review" rows="8" cols="100" style="width: 95%;" readonly> {{event.description}}</textarea>
-                                 </div>
-                                 <div class="row">
-                                    <div class="col-sm-8">
-                                       <label>Organizer</label>
-                                       <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="organizer" value="{{event.organizer.user.first_name}} {{event.organizer.user.last_name}}" readonly> 
+                    <td class="align-middle">
+                        <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalView"><i class="fa fa-eye"></i>View</button>
+                    </tr>
+                    <!-- Modal VIEW-->
+                    <div class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#1b263b">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" >&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" style="color: #fff">EVENT NAME</h5>
+                                </div>
+                                <form id="updateForm" method="post">
+                                    <div class="modal-body bg-dark text-light">
+                                        <input type="text" name="id" hidden>
+                                          <div class="container">
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-3 mb-3">
+                                                <label for="status">Status</label>
+                                                <input type="text" style ="text-transform: capitalize" class="form-control" id="status" name="status" minlength="1" maxlength="30" placeholder="" required>
+                                              </div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="location">Location</label>
+                                                <input type="text" class="form-control" id="location" name="location"  placeholder="">
+                                              </div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="type">Type of Event</label>
+                                                <input type="text" class="form-control" id="type" name="type" class="form-control" placeholder="" required>
+                                              </div>
+                                            </div><br>
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-2 mb-3">
+                                                <label for="startTime">Start Time</label>
+                                                <input type="time" class="form-control" id="startTime" name="startTime" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="endTime">End Time</label>
+                                                <input type="time" class="form-control" id="endTime" name="endTime" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="startDate">Start Date</label>
+                                                 <input type="date" class="form-control" id="startDate" name="startDate" placeholder="mm/dd/yyyy"  value="" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="endDate">End Date</label>
+                                                 <input type="date" class="form-control" id="endDate" name="endDate" placeholder="mm/dd/yyyy"  value="" required>
+                                              </div>
+                                            </div><br>
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-9 mb-3">
+                                                <label for="plateNumber">Description</label>
+                                               <textarea class ="form-control" id="id-description" name="description" required="required" rows="6" col="10" maxlength="5000" minlength="5" style="resize: none;"></textarea>
+                                              </div>
+                                            </div>  
+                                            <br>
+                                            <div class="row" style="width: 1200">                     
+                                                <div class = "col-sm-5">
+                                                    <label>Organizer</label>
+                                                    <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="Organizer Name" value =""}>
+                                                </div>
+                                                <div class = "col-sm-4">
+                                                    <label>Number of Participants</label>
+                                                    <input name ="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="" required>
+                                                </div>
+                                        </div>
+                                            <br><br>
+            
+                                        </div>    
                                     </div>
-                                    <div class="col-sm-4">
-                                       <label>Number of Participants</label>
-                                       <input name="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="{{event.participantsCount}}" readonly> 
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">BACK</button>
+                                        <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">JOIN</button>
                                     </div>
-                                    <div class="col-sm-4" hidden>
-                                       <input name="eventID" id="eventID" type="int" placeholder="" class="form-control" max="100" value="{{event.id}}"> 
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="modal-footer">
-                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#F45B69; color:#ffffff;">BACK</button> &nbsp; &nbsp;
-                                 <button type="submit" id="btnJoinEvent" name="btnJoinEvent" class="btn btn-primary" style="background-color:#028090; color:#ffffff;">JOIN</button>
-                              </div>
-                           </form>
+                                </form>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-                  {% endfor %}
-               </tbody>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h2 class="text-left" style="font-weight: 500;">Upcoming</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Event Name</th>
+                     <th scope="col">Type</th>
+                     <th scope="col">Start</th>
+                     <th scope="col">End</th>
+                     <th scope="col">&nbsp;&nbsp;More Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                {% if not status == "Upcoming" %}
+                  <tr>
+                     <td>{{event.name}}</td>
+                     <td>{{event.type}}</td>
+                     <td>{{event.startDateTime}}</td>
+                     <td>{{event.endDateTime}}</td>
+                    <td class="align-middle">
+                        <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalView"><i class="fa fa-eye"></i>View</button>
+                    </tr>
+                    <!-- Modal VIEW-->
+                    <div class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#1b263b">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" >&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" style="color: #fff">EVENT NAME</h5>
+                                </div>
+                                <form id="updateForm" method="post">
+                                    <div class="modal-body bg-dark text-light">
+                                        <input type="text" name="id" hidden>
+                                          <div class="container">
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-3 mb-3">
+                                                <label for="status">Status</label>
+                                                <input type="text" style ="text-transform: capitalize" class="form-control" id="status" name="status" minlength="1" maxlength="30" placeholder="" required>
+                                              </div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="location">Location</label>
+                                                <input type="text" class="form-control" id="location" name="location"  placeholder="">
+                                              </div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="type">Type of Event</label>
+                                                <input type="text" class="form-control" id="type" name="type" class="form-control" placeholder="" required>
+                                              </div>
+                                            </div><br>
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-2 mb-3">
+                                                <label for="startTime">Start Time</label>
+                                                <input type="time" class="form-control" id="startTime" name="startTime" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="endTime">End Time</label>
+                                                <input type="time" class="form-control" id="endTime" name="endTime" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="startDate">Start Date</label>
+                                                 <input type="date" class="form-control" id="startDate" name="startDate" placeholder="mm/dd/yyyy"  value="" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="endDate">End Date</label>
+                                                 <input type="date" class="form-control" id="endDate" name="endDate" placeholder="mm/dd/yyyy"  value="" required>
+                                              </div>
+                                            </div><br>
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-9 mb-3">
+                                                <label for="plateNumber">Description</label>
+                                               <textarea class ="form-control" id="id-description" name="description" required="required" rows="6" col="10" maxlength="5000" minlength="5" style="resize: none;"></textarea>
+                                              </div>
+                                            </div>  
+                                            <br>
+                                            <div class="row" style="width: 1200">                     
+                                                <div class = "col-sm-5">
+                                                    <label>Organizer</label>
+                                                    <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="Organizer Name" value =""}>
+                                                </div>
+                                                <div class = "col-sm-4">
+                                                    <label>Number of Participants</label>
+                                                    <input name ="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="" required>
+                                                </div>
+                                        </div>
+                                            <br><br>
+            
+                                        </div>    
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">BACK</button>
+                                        <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">JOIN</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h2 class="text-left" style="font-weight: 500;">Joined</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Event Name</th>
+                     <th scope="col">Type</th>
+                     <th scope="col">Start</th>
+                     <th scope="col">End</th>
+                     <th scope="col">&nbsp;&nbsp;More Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in joinedEvents %}
+                  <tr>
+                     <td>{{event.name}}</td>
+                     <td>{{event.type}}</td>
+                     <td>{{event.startDateTime}}</td>
+                     <td>{{event.endDateTime}}</td>
+                    <td class="align-middle">
+                        <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalView"><i class="fa fa-eye"></i>View</button>
+                    </tr>
+                    <!-- Modal VIEW-->
+                    <div class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#1b263b">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" >&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" style="color: #fff">EVENT NAME</h5>
+                                </div>
+                                <form id="updateForm" method="post">
+                                    <div class="modal-body bg-dark text-light">
+                                        <input type="text" name="id" hidden>
+                                          <div class="container">
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-3 mb-3">
+                                                <label for="status">Status</label>
+                                                <input type="text" style ="text-transform: capitalize" class="form-control" id="status" name="status" minlength="1" maxlength="30" placeholder="" required>
+                                              </div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="location">Location</label>
+                                                <input type="text" class="form-control" id="location" name="location"  placeholder="">
+                                              </div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="type">Type of Event</label>
+                                                <input type="text" class="form-control" id="type" name="type" class="form-control" placeholder="" required>
+                                              </div>
+                                            </div><br>
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-2 mb-3">
+                                                <label for="startTime">Start Time</label>
+                                                <input type="time" class="form-control" id="startTime" name="startTime" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="endTime">End Time</label>
+                                                <input type="time" class="form-control" id="endTime" name="endTime" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="startDate">Start Date</label>
+                                                 <input type="date" class="form-control" id="startDate" name="startDate" placeholder="mm/dd/yyyy"  value="" required>
+                                              </div>
+                                             <div class="col-md-2 mb-3">
+                                                <label for="endDate">End Date</label>
+                                                 <input type="date" class="form-control" id="endDate" name="endDate" placeholder="mm/dd/yyyy"  value="" required>
+                                              </div>
+                                            </div><br>
+                                            <div class="row" style="width: 1200">
+                                              <div class="col-md-9 mb-3">
+                                                <label for="plateNumber">Description</label>
+                                               <textarea class ="form-control" id="id-description" name="description" required="required" rows="6" col="10" maxlength="5000" minlength="5" style="resize: none;"></textarea>
+                                              </div>
+                                            </div>  
+                                            <br>
+                                            <div class="row" style="width: 1200">                     
+                                                <div class = "col-sm-5">
+                                                    <label>Organizer</label>
+                                                    <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="Organizer Name" value =""}>
+                                                </div>
+                                                <div class = "col-sm-4">
+                                                    <label>Number of Participants</label>
+                                                    <input name ="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="" required>
+                                                </div>
+                                        </div>
+                                            <br><br>
+            
+                                        </div>    
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">BACK</button>
+                                        <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">JOIN</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
             </table>
             <div id="card-header" class="card-header bg-dark text-light">
-               <h6 class="text-center" style="font-weight: 100;">Click "View" to read details about the event and join</h6>
+                <h6 class="text-center" style="font-weight: 100;">Click "View" to read details about the event and join</h6>
             </div>
-         </div>
-      </div>
-
-      <!-- Modal Organizer Request-->
-      <div class="modal fade" id="modalOrgRequest" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
-         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-               <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
-                  <b>
-                     <h5 class="modal-title">REQUEST TO BE ORGANIZER</h5>
-                  </b>
-               </div>
-               <div class="modal-body">
-                  <div class="row">
-                     <div class="col-sm-12">
-                        <br>
-                        <center> Request for Organizer role for more privilege </center>
-                        <br> 
-                     </div>
-                     <div class="col-sm-12">
-                        <form method="POST">
-                           {% csrf_token %}
-                           <center>
-                              <button type="button" class="btn" data-dismiss="modal" style="background-color:#F45B69; color:#ffffff;">CANCEL</button> &nbsp; &nbsp; &nbsp;
-                              <button type="submit" id="btnOrganizerRoleRequest" name="btnOrganizerRoleRequest" class="btn" style="background-color:#028090; color:#ffffff;">SUBMIT</button>
-                           </center>
-                        </form>
-                        <br>
-                        <br> 
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-
-      <!-- Modal Admin Request-->
-      <div class="modal fade" id="modalAdminRequest" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
-         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-               <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-                  <b>
-                     <h5 class="modal-title">REQUEST TO BE ADMINISTRATOR</h5>
-                  </b>
-               </div>
-               <div class="modal-body">
-                  <div class="row">
-                     <div class="col-sm-12">
-                        <br>
-                        <center> Be one of the Administrators </center>
-                        <br> 
-                     </div>
-                     <div class="col-sm-12">
-                        <form method="POST">
-                           {% csrf_token %}
-                           <center>
-                              <button type="button" class="btn" data-dismiss="modal" style="background-color:#F45B69; border-color:#F45B69; color:#ffffff;">CANCEL</button> &nbsp; &nbsp; &nbsp;
-                              <button type="submit" id="btnAdminRoleRequest" name="btnAdminRoleRequest" class="btn" style="background-color:#028090; border-color:#028090; color:#ffffff;">SUBMIT</button>
-                           </center>
-                        </form>
-                        <br>
-                        <br> 
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-
-      {% endblock content %} 
-   </body>
-
- 
+        </div> 
+    </div>
+    <!-- Modal Organizer Request-->
+                    <div class="modal fade" id="modalOrgRequest" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#1b263b">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" style="color:#fff">REQUEST TO BE AN ORGANIZER</h5>
+                                </div>
+                                <form id="updateForm" method="post">
+                                    <div class = "row">
+                                        <div class = "col-sm-12"><br><br>
+                                            <center>
+                                                Request for Organizer role for more privilege
+                                            </center><br><br>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class = "row">
+                                        <div class = "col-sm-12"><center>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+                                            <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">SUBMIT</button></center>
+                                        </div>
+                                    </div><br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Administrator Request-->
+                    <div class="modal fade" id="modalAdminRequest" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#1b263b">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" style="color:#fff">REQUEST TO BE AN ADMINISTRATOR</h5>
+                                </div>
+                                <form id="updateForm" method="post">
+                                    <div class = "row">
+                                        <div class = "col-sm-12"><br><br>
+                                            <center>
+                                                Request for Administrator role for more privilege
+                                            </center><br><br>
+                                        </div>
+                                    </div>
+                                    <div class = "row">
+                                        <div class = "col-sm-12"><center>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                            <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">SUBMIT</button></center>
+                                        </div>
+                                    </div><br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+</div>
+{% endblock content %}
+</body>
 </html>
