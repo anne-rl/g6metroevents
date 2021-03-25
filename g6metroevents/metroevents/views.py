@@ -196,13 +196,16 @@ class OrgDashboard_EventList(View):
         notifcount = Notification.objects.filter(organizer=organizer.id).count()
 
         #count all concluded events for the concluded events badge
-        concludedEvents = organizer.events.filter(status = "Done").count()
+        concludedEvents = organizer.events.filter(status = "Done")
+        concludedEventsCount = concludedEvents.count()
         context = {
             'events':events,
             'user' : user,
+            "username" : user.username,
             'requests': requests,
             'notifcount': notifcount,
             'concludedEvents': concludedEvents,
+            'concludedEventsCount': concludedEventsCount,
         }
         return render(request, 'orgdashboard_eventList.html', context)
 
@@ -292,6 +295,7 @@ class OrgDashboard_Notifications(View):
         notifications = organizer.notifications.all()
         context = {
             "user" : user,
+            "username" : user.username,
             "notifcount": notifcount,
             "notifications" : notifications, 
         }
