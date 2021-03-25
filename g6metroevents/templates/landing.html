@@ -18,6 +18,48 @@
   align-items: center;
   height: 100%;
   }
+
+  #login-dp {
+  min-width: 250px;
+  padding: 14px 14px 0;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, .8);
+}
+
+#login-dp .help-block {
+  font-size: 12px
+}
+
+#login-dp .bottom {
+  background-color: rgba(255, 255, 255, .8);
+  border-top: 1px solid #ddd;
+  clear: both;
+  padding: 14px;
+}
+
+#login-dp .social-buttons {
+  margin: 12px 0
+}
+
+#login-dp .social-buttons a {
+  width: 49%;
+}
+
+#login-dp .form-group {
+  margin-bottom: 10px;
+}
+
+@media(max-width:768px) {
+  #login-dp {
+    background-color: inherit;
+    color: #fff;
+  }
+
+  #login-dp .bottom {
+    background-color: inherit;
+    border-top: 0 none;
+  }
+}
 </style>
 <!-- navbar-->
 <header class="header">
@@ -42,12 +84,51 @@
             <a href="#contactus" class="nav-link link-scroll">CONTACT US</a>
          </li>
       </ul>
-      <div class="navbar-text">
+      <ul class="nav navbar-nav navbar-left">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white; padding-top: 10px; padding-bottom: 10px; padding-left: 10px; padding-right: 10px; background-color: #1b263b; height: 40px; border-radius: 5px; font-size: 14px; width: 90px">
+              <i class="fa fa-lock" aria-hidden="true"></i> LOG IN<span class="caret"></span></a>
+            <ul id="login-dp" class="dropdown-menu dropdown-menu-right" style="background-color: #415a77">
+              <li>
+                <div class="row">
+                  <div class="col-md-12">
+                    <form class="post-form" role="form" method="post" action="landing" accept-charset="UTF-8" id="login-nav">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail2">Username</label>
+                        <input type="text" class="form-control" id="id-passengerID" name="username" placeholder="Username" required>
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputPassword2"><i class="fa fa-lock" aria-hidden="true"></i>Password</label>
+                        <input type="password" class="form-control" id="id-password" placeholder="Password" name="password" required>
+                      </div>
+                      <center><label class="text-danger">{{msg}}</label></center>
+                      <!-- <div class="form-group">
+                        <button type="submit" class="btn btn-primary form-control" style="background-color: #1b263b">></button>
+                      </div> -->
+                      <div class="group"> 
+                           <input type="submit" class="btn btn-primary form-control" style="background-color: #1b263b" value="Log In" name="btn-login"> 
+                        </div><br>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="text-center">
+                              <a href="userRegistration" tabindex="5" class="forgot-password" style="color: white">Register here</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </li>
+            </ul>
+      <!-- <div class="navbar-text">
          <form id="form1" action="signup_login" method="" autocomplete="off" enctype="multipart/form-data">
             {% csrf_token %}
             <a type="submit" class="btn btn-primary navbar-btn btn-shadow" style = "background-color: #415a77; border-color: #415a77;" id="id_registration" href="{% url 'user:login' %}">Log In</a>
          </form>
-      </div>
+      </div> -->
    </div>
 </nav>
 <div style="background-image: url('{% static 'img/bg_1.jpg' %}');background-size: cover; height:1000px; padding-top:200px; "></div>

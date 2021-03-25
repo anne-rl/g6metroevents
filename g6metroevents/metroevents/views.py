@@ -17,6 +17,24 @@ class Landing(View):
         return render(request, 'landing.html')
 
     def post(self, request):
+        if 'btn-login' in request.POST:
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                #admin
+                if request.user.is_staff or request.user.is_superuser: 
+                    return HttpResponseRedirect(reverse('admin:index'))
+                #organizer
+                elif hasattr(request.user,'organizer'):
+                    return redirect('user:o-eventlist')
+                #user    
+                else:
+                    return redirect('user:eventlist')
+            else:
+                context = {'msg': 'Invalid username or password!'}
+                return render(request, 'signup_login.html', context = context)
         return render(request, 'landing.html')
 
 class LoginView(View):
