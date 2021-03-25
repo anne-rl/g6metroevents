@@ -84,6 +84,9 @@ class UserDashboard_EventList(View):
         events = Event.objects.all()
         notifcount = Notification.objects.filter(user_id= currentUserID).count()
         joinedEventsCount = currentUser.event_set.all().count()
+        joinedEvents = currentUser.event_set.all()
+        joinedEventsCount = joinedEvents.count()
+
         context = {
             "username" : currentUser.username,
             "isOrganizer" : organizer,
@@ -91,6 +94,7 @@ class UserDashboard_EventList(View):
             "events" : events,
             "notifcount": notifcount,
             "joinedEventsCount": joinedEventsCount,
+            "joinedEvents" : joinedEvents,
         }
         return render(request, 'userdashboard_eventList.html', context = context)
 
@@ -104,6 +108,24 @@ class UserDashboard_EventList(View):
             eventID = request.POST.get('eventID')
             userID = request.user.id
             requestJoinEvent(userID, eventID)
+        if 'btnUpvote' in request.POST:
+            eventID = request.POST.get('eventID')
+            user = request.user
+            upvoteEvent(eventID)
+            return redirect("user:joinedevents")
+        elif 'btnDownvote' in request.POST:
+            eventID = request.POST.get('eventID')
+            user = request.user
+            downvoteEvent(eventID)
+            return redirect("user:joinedevents")
+        elif 'btnReview' in request.POST:
+            user = request.user
+            eventID = request.POST.get('eventID')
+            title = request.POST.get('title')
+            description = request.POST.get('description')
+            event = Event.objects.get(id = eventID)
+            review = Review.objects.create(user = user, event=event, title=title, createdDateTime=dt.now(), description=description)
+            return redirect("user:joinedevents")
         return redirect ("user:eventlist")
 
 class UserDashboard_JoinedEvents(View):
@@ -154,7 +176,7 @@ class UserDashboard_Notifications(View):
         notifications = currentUser.notifications.all()
         notifcount = Notification.objects.filter(user_id= currentUserID).count()
         context = {
-            'user' : currentUser,
+            "username" : currentUser.username,
             'notifcount': notifcount,
             'notifications': notifications
         }

@@ -26,7 +26,7 @@
             <li class="active" class="dropdown">
                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Events<span class="caret"></span></a>
                <ul class="dropdown-menu">
-                  <li><a data-toggle="collapse" data-parent="#accordion" href="#collapse1" >Events List</a></li><!-- href="userDashboard_eventList"
+                  <li><a href="eventlist" >Events List</a></li><!-- href="userDashboard_eventList"
         <div id="collapse1" class="panel-collapse collapse in">
                      <ul class="list-group">
                         <li class="list-group-item">Events List</li>
@@ -61,7 +61,7 @@
         <div id="card-header" class="card-header bg-dark text-light">
             <h1 class="text-center" style="font-weight: 500;">List of Events</h1>
         </div>
-        <h2 class="text-left" style="font-weight: 500;">On Going</h2>
+        <!-- <h2 class="text-left" style="font-weight: 500;">On Going</h2>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -83,7 +83,7 @@
                     <td class="align-middle">
                         <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalView"><i class="fa fa-eye"></i>View</button>
                     </tr>
-                    <!-- Modal VIEW-->
+                    <!-- Modal VIEW
                     <div class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
@@ -94,6 +94,7 @@
                                     <h5 class="modal-title" style="color: #fff">EVENT NAME</h5>
                                 </div>
                                 <form id="updateForm" method="post">
+                                 {% csrf_token %}
                                     <div class="modal-body bg-dark text-light">
                                         <input type="text" name="id" hidden>
                                           <div class="container">
@@ -161,7 +162,7 @@
                     {% endif %}
                     {% endfor %}
                 </tbody>
-            </table>
+            </table> -->
             <h2 class="text-left" style="font-weight: 500;">Upcoming</h2>
         <table class="table table-hover">
             <thead>
@@ -192,66 +193,37 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true" >&times;</span>
                                     </button>
-                                    <h5 class="modal-title" style="color: #fff">EVENT NAME</h5>
+                                    <h5 class="modal-title" style="color: #fff">{{event.name}}</h5>
                                 </div>
                                 <form id="updateForm" method="post">
                                     <div class="modal-body bg-dark text-light">
                                         <input type="text" name="id" hidden>
                                           <div class="container">
-                                            <div class="row" style="width: 1200">
-                                              <div class="col-md-3 mb-3">
-                                                <label for="status">Status</label>
-                                                <input type="text" style ="text-transform: capitalize" class="form-control" id="status" name="status" minlength="1" maxlength="30" placeholder="" required>
-                                              </div>
-                                              <div class="col-md-3 mb-3">
-                                                <label for="location">Location</label>
-                                                <input type="text" class="form-control" id="location" name="location"  placeholder="">
-                                              </div>
-                                              <div class="col-md-3 mb-3">
-                                                <label for="type">Type of Event</label>
-                                                <input type="text" class="form-control" id="type" name="type" class="form-control" placeholder="" required>
-                                              </div>
-                                            </div><br>
-                                            <div class="row" style="width: 1200">
-                                              <div class="col-md-2 mb-3">
-                                                <label for="startTime">Start Time</label>
-                                                <input type="time" class="form-control" id="startTime" name="startTime" required>
-                                              </div>
-                                             <div class="col-md-2 mb-3">
-                                                <label for="endTime">End Time</label>
-                                                <input type="time" class="form-control" id="endTime" name="endTime" required>
-                                              </div>
-                                             <div class="col-md-2 mb-3">
-                                                <label for="startDate">Start Date</label>
-                                                 <input type="date" class="form-control" id="startDate" name="startDate" placeholder="mm/dd/yyyy"  value="" required>
-                                              </div>
-                                             <div class="col-md-2 mb-3">
-                                                <label for="endDate">End Date</label>
-                                                 <input type="date" class="form-control" id="endDate" name="endDate" placeholder="mm/dd/yyyy"  value="" required>
-                                              </div>
-                                            </div><br>
-                                            <div class="row" style="width: 1200">
+                                             <div class="row" style="width: 1200">
                                               <div class="col-md-9 mb-3">
                                                 <label for="plateNumber">Description</label>
-                                               <textarea class ="form-control" id="id-description" name="description" required="required" rows="6" col="10" maxlength="5000" minlength="5" style="resize: none;"></textarea>
+                                               <input name="description" type="text" max="255" class="form-control" id="description" placeholder="description" value="{{event.description}}" readonly>
                                               </div>
-                                            </div>  
+                                            </div>
+                                            <div class="row" style="width: 1200">
+                                            </div><br>  
                                             <br>
-                                            <div class="row" style="width: 1200">                     
-                                                <div class = "col-sm-5">
-                                                    <label>Organizer</label>
-                                                    <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="Organizer Name" value =""}>
-                                                </div>
-                                                <div class = "col-sm-4">
-                                                    <label>Number of Participants</label>
-                                                    <input name ="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="" required>
-                                                </div>
-                                        </div>
-                                            <br><br>
-            
-                                        </div>    
+                                              <div class="col-md-3 mb-3">
+                                                <label for="organizer">Organizer</label>
+                                                <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="organizer" value="{{event.organizer.user.first_name}} {{event.organizer.user.last_name}}" readonly>
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                             <label for="startDateTime">When</label>
+                                             <input name="startDateTime" type="text" max="255" class="form-control" id="status" placeholder="startDateTime" value="{{event.startDateTime}}" readonly></div>
+
+                                              <div class="col-md-3 mb-3">
+                                                <label for="upvotes">Upvotes</label>
+                                                <input name="upvotes" type="text" max="255" class="form-control" id="upvotes" placeholder="upvotes" value="{{event.upvotes}}" readonly>
+                                            </div><br>
+                                         </div>    
                                     </div>
                                     <div class="modal-footer">
+                                       {% csrf_token %}
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">BACK</button>
                                         <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">JOIN</button>
                                     </div>
@@ -265,102 +237,135 @@
             </table>
             <h2 class="text-left" style="font-weight: 500;">Joined</h2>
         <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Event Name</th>
+               <thead>
+                  <tr>
+                     <th scope="col">Event Name</th>
                      <th scope="col">Type</th>
+                     <th scope="col">Status</th>
                      <th scope="col">Start</th>
                      <th scope="col">End</th>
-                     <th scope="col">&nbsp;&nbsp;More Details</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for event in joinedEvents %}
+                     <th scope="col">Total Votes</th>
+                     <th scope="col">View</th>
+                     <th scope="col">&nbsp;&nbsp;&nbsp;Review</th>
+                     <th scope="col"></th>
+                     
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for event in joinedEvents %}
                   <tr>
                      <td>{{event.name}}</td>
                      <td>{{event.type}}</td>
+                     <td>{{event.status}}</td>
                      <td>{{event.startDateTime}}</td>
                      <td>{{event.endDateTime}}</td>
-                    <td class="align-middle">
-                        <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalView"><i class="fa fa-eye"></i>View</button>
-                    </tr>
-                    <!-- Modal VIEW-->
-                    <div class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header" style="background-color:#1b263b">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true" >&times;</span>
-                                    </button>
-                                    <h5 class="modal-title" style="color: #fff">EVENT NAME</h5>
-                                </div>
-                                <form id="updateForm" method="post">
-                                    <div class="modal-body bg-dark text-light">
-                                        <input type="text" name="id" hidden>
-                                          <div class="container">
-                                            <div class="row" style="width: 1200">
-                                              <div class="col-md-3 mb-3">
-                                                <label for="status">Status</label>
-                                                <input type="text" style ="text-transform: capitalize" class="form-control" id="status" name="status" minlength="1" maxlength="30" placeholder="" required>
-                                              </div>
-                                              <div class="col-md-3 mb-3">
-                                                <label for="location">Location</label>
-                                                <input type="text" class="form-control" id="location" name="location"  placeholder="">
-                                              </div>
-                                              <div class="col-md-3 mb-3">
-                                                <label for="type">Type of Event</label>
-                                                <input type="text" class="form-control" id="type" name="type" class="form-control" placeholder="" required>
-                                              </div>
-                                            </div><br>
-                                            <div class="row" style="width: 1200">
-                                              <div class="col-md-2 mb-3">
-                                                <label for="startTime">Start Time</label>
-                                                <input type="time" class="form-control" id="startTime" name="startTime" required>
-                                              </div>
-                                             <div class="col-md-2 mb-3">
-                                                <label for="endTime">End Time</label>
-                                                <input type="time" class="form-control" id="endTime" name="endTime" required>
-                                              </div>
-                                             <div class="col-md-2 mb-3">
-                                                <label for="startDate">Start Date</label>
-                                                 <input type="date" class="form-control" id="startDate" name="startDate" placeholder="mm/dd/yyyy"  value="" required>
-                                              </div>
-                                             <div class="col-md-2 mb-3">
-                                                <label for="endDate">End Date</label>
-                                                 <input type="date" class="form-control" id="endDate" name="endDate" placeholder="mm/dd/yyyy"  value="" required>
-                                              </div>
-                                            </div><br>
-                                            <div class="row" style="width: 1200">
-                                              <div class="col-md-9 mb-3">
-                                                <label for="plateNumber">Description</label>
-                                               <textarea class ="form-control" id="id-description" name="description" required="required" rows="6" col="10" maxlength="5000" minlength="5" style="resize: none;"></textarea>
-                                              </div>
-                                            </div>  
-                                            <br>
-                                            <div class="row" style="width: 1200">                     
-                                                <div class = "col-sm-5">
-                                                    <label>Organizer</label>
-                                                    <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="Organizer Name" value =""}>
-                                                </div>
-                                                <div class = "col-sm-4">
-                                                    <label>Number of Participants</label>
-                                                    <input name ="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="" required>
-                                                </div>
-                                        </div>
-                                            <br><br>
-            
-                                        </div>    
+                     <td>{{event.upvotes}}</td>
+                     <td class="align-middle">
+                        <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalView-{{event.id}}" style="background-color:#028090; border-color: #028090;"><i class="fa fa-eye"></i> View</button>
+                     </td>
+                     <td class="align-middle">
+                        <button type="button" class="btn btn-success btn-xs" id="reviewBtn" data-toggle="modal" data-target="#modalReview-{{event.id}}" style="background-color: #F45B69; border-color: #F45B69;"><i class="fa fa-eye"></i>Give Review</button>
+                     </td>
+                     <td class="align-middle">
+                        <form method="POST">
+                           {% csrf_token %}
+                           <div class="col-sm-4" hidden>
+                              <input name="eventID" id="eventID" type="int" placeholder="" class="form-control" max="100" value="{{event.id}}"> 
+                           </div>
+                           <button type="submit" class="btn btn-success btn-xs" id="btnUpvote" name="btnUpvote" style="background-color: #1C2541; border-color: #1C2541;"><i class="fa fa-eye"></i>Upvote</button>
+                           <button type="submit" class="btn btn-success btn-xs" id="btnDownvote" name="btnDownvote" style="background-color: #1C2541; border-color: #1C2541;"><i class="fa fa-eye"></i>Downvote</button>
+                        </form>
+                     </td>
+                  </tr>
+                  <!-- Modal VIEW-->
+                  <div class="modal fade" id="modalView-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+                              <b>
+                                 <h5 class="modal-title">EVENT NAME</h5>
+                              </b>
+                           </div>
+                           <form id="updateForm" method="post">
+                              <div class="modal-body bg-dark text-light">
+                                 <div class="row">
+                                    <strong>
+                                       <p>&nbsp;&nbsp;Event Description</p>
+                                    </strong>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <textarea id="description" name="description" rows="8" cols="100" style="width: 95%;" readonly>{{event.description}} </textarea>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-sm-8">
+                                       <label>Organizer</label>
+                                       <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="Organizer Name" value="{{event.organizer.user.first_name}} {{event.organizer.user.last_name}}" readonly> 
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">BACK</button>
-                                        <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">JOIN</button>
+                                    <div class="col-sm-4">
+                                       <label>Number of Participants</label>
+                                       <input name="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="{{event.participantsCount}}" readonly> 
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="col-sm-4" hidden>
+                                       <input name="eventID" id="eventID" type="int" placeholder="" class="form-control" max="100" value="{{event.id}}"> 
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#F45B69; color:#ffffff;">BACK</button> &nbsp; &nbsp;
+                              </div>
+                           </form>
                         </div>
-                    </div>
-                    {% endfor %}
-                </tbody>
+                     </div>
+                  </div>
+                  <!-- Modal Review-->
+                  <div class="modal fade" id="modalReview-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                              <h5 class="modal-title">EVENT REVIEW</h5>
+                           </div>
+                           <form id="addReviewForm" method="post" enctype="multipart/form-data">
+                              {% csrf_token %}
+                              <div class="modal-body bg-dark text-light">
+                                 <div class="row">
+                                    <div class="col-sm-4" hidden>
+                                       <input name="eventID" id="eventID" type="int" placeholder="" class="form-control" max="100" value="{{event.id}}"> 
+                                    </div>
+                                    <div class="col-sm-6">
+                                       <label>Name of Event</label>
+                                       <input name="name" id="name" type="text" placeholder="" class="form-control" max="100" value="{{event.name}}" readonly>
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-sm-6">
+                                       <label>Review Title</label>
+                                       <input name="title" id="title" type="text" placeholder="" class="form-control" max="100" value="" required>
+                                    </div>
+                                 </div>
+                                 <div class = "row">
+                                    <strong>
+                                       <p>&nbsp;&nbsp;&nbsp;&nbsp;Review</p>
+                                    </strong>
+                                    <center>
+                                       <textarea id="description" name="description" rows="8" cols="100" style="width: 95%;">
+                                       </textarea>
+                                    </center>
+                                 </div>
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#F45B69; color:#ffffff;">CANCEL</button>
+                                 &nbsp;&nbsp;
+                                 <button type="submit" id="btnReview" name="btnReview" class="btn" style="background-color:#028090; color:#ffffff;">SUBMIT</button>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+                  {% endfor %}
+               </tbody>
             </table>
             <div id="card-header" class="card-header bg-dark text-light">
                 <h6 class="text-center" style="font-weight: 100;">Click "View" to read details about the event and join</h6>
