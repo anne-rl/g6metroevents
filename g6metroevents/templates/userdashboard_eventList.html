@@ -201,21 +201,31 @@
                                           <div class="container">
                                              <div class="row" style="width: 1200">
                                               <div class="col-md-9 mb-3">
-                                                <label for="plateNumber">Description</label>
+                                               <label for="plateNumber">Description</label>
                                                <input name="description" type="text" max="255" class="form-control" id="description" placeholder="description" value="{{event.description}}" readonly>
                                               </div>
                                             </div>
+                                             <div class="row" style="width: 1200">
+                                            </div><br>  
+                                            <br>
+                                              <div class="col-md-4 mb-4">
+                                                <label for="organizer">End Date & Time</label>
+                                                <input name="endDateTime" type="text" max="255" class="form-control" id="endDateTime" placeholder="endDateTime" value="{{event.endDateTime}}" readonly>
+                                              </div>
+                                              <div class="col-md-5 mb-4">
+                                               <label for="startDateTime">Start Date & Time</label>
+                                               <input name="startDateTime" type="text" max="255" class="form-control" id="status" placeholder="startDateTime" value="{{event.startDateTime}}" readonly></div>
+                                            <br>
                                             <div class="row" style="width: 1200">
                                             </div><br>  
                                             <br>
                                               <div class="col-md-3 mb-3">
                                                 <label for="organizer">Organizer</label>
                                                 <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="organizer" value="{{event.organizer.user.first_name}} {{event.organizer.user.last_name}}" readonly>
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                             <label for="startDateTime">When</label>
-                                             <input name="startDateTime" type="text" max="255" class="form-control" id="status" placeholder="startDateTime" value="{{event.startDateTime}}" readonly></div>
-
+                                              </div>
+                                              <div class="col-md-3 mb-3">
+                                               <label for="startDateTime">Start Date & Time</label>
+                                               <input name="startDateTime" type="text" max="255" class="form-control" id="status" placeholder="startDateTime" value="{{event.startDateTime}}" readonly></div>
                                               <div class="col-md-3 mb-3">
                                                 <label for="upvotes">Upvotes</label>
                                                 <input name="upvotes" type="text" max="255" class="form-control" id="upvotes" placeholder="upvotes" value="{{event.upvotes}}" readonly>
