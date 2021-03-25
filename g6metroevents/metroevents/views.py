@@ -99,7 +99,7 @@ class UserDashboard_EventList(View):
             organizer = "true"
         if hasattr(currentUser, 'administrator'):
             admin = "true"
-        events = Event.objects.all()
+        upcomingEvents = Event.objects.filter(status = "Upcoming")
         notifcount = Notification.objects.filter(user_id= currentUserID).count()
         joinedEventsCount = currentUser.event_set.all().count()
         joinedEvents = currentUser.event_set.all()
@@ -109,7 +109,7 @@ class UserDashboard_EventList(View):
             "username" : currentUser.username,
             "isOrganizer" : organizer,
             "isAdmin": admin,
-            "events" : events,
+            "events" : upcomingEvents,
             "notifcount": notifcount,
             "joinedEventsCount": joinedEventsCount,
             "joinedEvents" : joinedEvents,
@@ -130,12 +130,12 @@ class UserDashboard_EventList(View):
             eventID = request.POST.get('eventID')
             user = request.user
             upvoteEvent(eventID)
-            return redirect("user:joinedevents")
+            return redirect("user:eventlist")
         elif 'btnDownvote' in request.POST:
             eventID = request.POST.get('eventID')
             user = request.user
             downvoteEvent(eventID)
-            return redirect("user:joinedevents")
+            return redirect("user:eventlist")
         elif 'btnReview' in request.POST:
             user = request.user
             eventID = request.POST.get('eventID')
@@ -143,7 +143,7 @@ class UserDashboard_EventList(View):
             description = request.POST.get('description')
             event = Event.objects.get(id = eventID)
             review = Review.objects.create(user = user, event=event, title=title, createdDateTime=dt.now(), description=description)
-            return redirect("user:joinedevents")
+            return redirect("user:eventlist")
         return redirect ("user:eventlist")
 
 class UserDashboard_JoinedEvents(View):
@@ -215,6 +215,7 @@ class OrgDashboard_EventList(View):
 
         #count all concluded events for the concluded events badge
         concludedEvents = organizer.events.filter(status = "Done")
+        cancelledEvents = organizer.events.filter(status = "Cancelled")
         concludedEventsCount = concludedEvents.count()
         context = {
             'events':events,
@@ -224,6 +225,7 @@ class OrgDashboard_EventList(View):
             'notifcount': notifcount,
             'concludedEvents': concludedEvents,
             'concludedEventsCount': concludedEventsCount,
+            'cancelledEvents': cancelledEvents,
         }
         return render(request, 'orgdashboard_eventList.html', context)
 

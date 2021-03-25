@@ -178,7 +178,7 @@
                      <td>{{event.endDateTime}}</td>
                      <td>{{event.upvotes}}</td>
                      <td class="align-middle">
-                        <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalView-{{event.id}}" style="background-color:#219ebc; border-color: #219ebc;"></i> View</button>
+                        <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalJoinedView-{{event.id}}" style="background-color:#219ebc; border-color: #219ebc;"></i> View</button>
                      </td>
                      <td class="align-middle">
                         <button type="button" class="btn btn-success btn-xs" id="reviewBtn" data-toggle="modal" data-target="#modalReview-{{event.id}}" style="background-color: #023047; border-color: #023047;"></i>Review</button>
@@ -195,7 +195,7 @@
                      </td>
                   </tr>
                   <!-- Modal VIEW-->
-                  <div class="modal fade" id="modalView-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="modalJoinedView-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
                      <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                            <div class="modal-header" style="background-color:#ffb703; color:black;">

@@ -166,7 +166,7 @@
 
                   <!-- Modal Join Requests-->
                   <div class="modal fade" id="modalJoinReq-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
-                     <div class="modal-dialog modal-lg" role="document">
+                     <div class="modal-dialog modal-sm" role="document">
                         <div class="modal-content">
                            <div class="modal-header" style="background-color:#f77f00; color:#ffffff;">
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
@@ -241,7 +241,7 @@
             </table>
             <!--Table--->
          
-            <h2 class="text-left" style="font-weight: 500;">Past</h2>
+            <h2 class="text-left" style="font-weight: 500;">Successful</h2>
             <table class="table table-hover">
                <thead>
                   <tr>
@@ -257,6 +257,141 @@
                </thead>
                <tbody>
                {% for event in concludedEvents %}
+                  <tr>
+                     <td>{{event.name}}</td>
+                     <td>{{event.upvotes}}</td>
+                     <td>{{event.type}}</td>
+                     <td>{{event.startDateTime}}</td>
+                     <td>{{event.endDateTime}}</td>
+                     <td class="align-middle">
+                        <button type="button" class="btn btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalView-{{event.id}}" style="background-color:#028090; border-color: #028090; color: #ffffffff;"><i class="fa fa-eye"></i>Details</button>
+                     </td>
+                     <td>{{event.participantsCount}}</td>
+                     <td class="align-middle">
+                        <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalReviews-{{event.id}}" style="background-color:#1C2541; color:#ffffff; border-color: #1C2541;"><i class="fa fa-pencil"></i>Reviews<span class="badge">0</span></button>
+                     </td>
+                  </tr>
+                  <!-- Modal VIEW-->
+                  <div class="modal fade" id="modalView-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                              <h5 class="modal-title">{{event.name}}</h5>
+                           </div>
+                           <form id="updateForm" method="post">
+                              <div class="modal-body bg-dark text-light">
+                                 <div class="row">
+                                    <strong>
+                                       <p>&nbsp;&nbsp;&nbsp;&nbsp; Event Description</p>
+                                    </strong>
+                                    <center>
+                                       <textarea id="description" name="description" rows="8" cols="100" style="width: 95%;">{{event.description}}</textarea>
+                                    </center>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-sm-8">
+                                       <label>Organizer</label>
+                                       <input name="organizer" type="text" max="255" class="form-control" id="organizer" placeholder="Organizer Name" value="" readonly> 
+                                    </div>
+                                    <div class="col-sm-4">
+                                       <label>Number of Participants</label>
+                                       <input name="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="{{event.participantsCount}}" required> 
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn" data-dismiss="modal" style="background-color:#EE4266; text-color:#EE4266; color: #ffffff;">CLOSE</button>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Modal PARTICIPANTS-->
+                  <!-- <div class="modal fade" id="modalParticipantList" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                              <h5 class="modal-title">(EVENTNAME) PARTICIPANTS</h5>
+                           </div>
+
+                              <div class="modal-body bg-dark text-light">
+                                 <div class="row">
+                                    <div class="col-sm-12">
+                                       <strong>
+                                          <p>Participant Name</p>
+                                       </strong>
+                                       <input name="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="" readonly> 
+                                    </div>
+                                    <div class="col-sm-12">
+                                       <br> 
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn" data-dismiss="modal" style="background-color:#F45B69; border-color:#F45B69; color:#ffffff;">CLOSE</button>
+                              </div>
+
+                        </div>
+                     </div>
+                  </div> -->
+                  <!-- Modal Review-->
+                  <div class="modal fade" id="modalReviews-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                              <h5 class="modal-title">EVENT REVIEWS</h5>
+                           </div>
+                              <div class="modal-body bg-dark text-light">
+                                 {% for review in reviews %}
+                                 {% if review.event.id == event.id %}
+                                 <div class="row">
+                                    <strong>
+                                       <p>&nbsp;&nbsp;&nbsp;&nbsp;{{review.user.first_name}} {{review.user.last_name}} - {{review.title}}</p>
+                                    </strong>
+                                 </div>
+                                 <div class="row">
+                                    <strong>
+                                      <p>&nbsp;&nbsp;&nbsp;&nbsp;Participant's Review</p>
+                                    </strong>
+                                    <center>
+                                       <textarea id="w3review" name="w3review" rows="8" cols="100" style="width: 95%;" readonly> 
+                                          {{review.description}}
+                                       </textarea>
+                                    </center>
+                                 </div>
+                                 {% endif %}
+                                 {% endfor %}
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#F45B69; border-color:#F45B69; color:#ffffff;">CLOSE</button>
+                              </div>
+                        </div>
+                     </div>
+                  </div>
+               {% endfor %}
+               </tbody>
+            </table>
+            <!--Table--->
+         
+            <h2 class="text-left" style="font-weight: 500;">Cancelled</h2>
+            <table class="table table-hover">
+               <thead>
+                  <tr>
+                     <th scope="col">Event Name</th>
+                     <th scope="col">Upvote Count</th>
+                     <th scope="col">Type</th>
+                     <th scope="col">Start</th>
+                     <th scope="col">End</th>
+                     <th scope="col">Details</th>
+                     <th scope="col">Participants</th>
+                     <th scope="col">Reviews</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for event in cancelledEvents %}
                   <tr>
                      <td>{{event.name}}</td>
                      <td>{{event.upvotes}}</td>
