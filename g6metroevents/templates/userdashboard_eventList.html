@@ -230,12 +230,15 @@
                                                 <label for="upvotes">Upvotes</label>
                                                 <input name="upvotes" type="text" max="255" class="form-control" id="upvotes" placeholder="upvotes" value="{{event.upvotes}}" readonly>
                                             </div><br>
+                                            <div class="col-sm-4" hidden>
+                                       <input name="eventID" id="eventID" type="int" placeholder="" class="form-control" max="100" value="{{event.id}}"> 
+                                    </div>
                                          </div>    
                                     </div>
                                     <div class="modal-footer">
                                        {% csrf_token %}
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">BACK</button>
-                                        <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">JOIN</button>
+                                        <button type="submit" id="btnJoinEvent" name="btnJoinEvent" class="btn btn-primary">JOIN</button>
                                     </div>
                                 </form>
                             </div>
