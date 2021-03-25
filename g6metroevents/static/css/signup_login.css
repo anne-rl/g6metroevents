@@ -1,14 +1,14 @@
 body {
     margin: 0;
-    color: #6a6f8c;
+    color: #f77f00;
     background: #E4FDE1;
-    font: 600 16px/18px 'Open Sans', sans-serif
+    font: 500 16px/18px 'Open Sans', sans-serif
 }
 
 .login-box {
-    width: 100%;
+    width: 170%;
     margin: auto;
-    max-width: 525px;
+    max-width: 700px;
     min-height: 950px;
     position: relative;
 }
@@ -18,7 +18,7 @@ body {
     height: 100%;
     position: absolute;
     padding: 90px 70px 50px 70px;
-    background: #1C2541
+    background: #003049
 }
 
 .login-snip .login,

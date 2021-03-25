@@ -9,10 +9,10 @@
       <div class="card">
          <div class="login-box">
             <div class="login-snip">
-               <a type = "submit" id="id_registration" href="{% url 'user:landing' %}"><i style="font-size:24px; color:#F45B69;" class="fa">&#xf100;</i></a>
+               <a type = "submit" id="id_registration" href="{% url 'user:landing' %}"><i style="font-size:24px; color:#f77f00;" class="fa">&#xf112;</i></a>
                <br>
                <br>
-               <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Login</label> <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+               <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Login</label> <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">REGISTER</label>
                <div class="login-space">
                   <!-- LOGIN -->
                   <div class="login">
@@ -20,11 +20,11 @@
                         {% csrf_token %}
                         <div class="group"> 
                            <label for="user" class="label">Username</label> 
-                           <input id="user" type="text" class="input" placeholder="Enter your username" name="username"> 
+                           <input id="user" type="text" class="input" placeholder="Enter username" name="username"> 
                         </div>
                         <div class="group"> 
                            <label for="pass" class="label">Password</label> 
-                           <input id="pass" type="password" class="input" data-type="password" placeholder="Enter your password" name="password"> 
+                           <input id="pass" type="password" class="input" data-type="password" placeholder="Enter password" name="password"> 
                         </div>
                         <div class="group"> 
                            <input id="check" type="checkbox" class="check" checked>
@@ -43,28 +43,28 @@
                      <form method="POST">
                         {% csrf_token %}
                         <div class="group"> 
-                           <label for="pass" class="label">Firstname</label> 
+                           <label for="pass" class="label">First Name</label> 
                            <input id="pass" type="text" class="input" placeholder="Firstname" name="firstname" required> 
                         </div>
                         <div class="group"> 
-                           <label for="pass" class="label">Lastname</label> 
+                           <label for="pass" class="label">Last Name</label> 
                            <input id="pass" type="text" class="input" placeholder="Lastname" name="lastname" required> 
                         </div>
                         <div class="group"> 
                            <label for="pass" class="label">Email Address</label> 
-                           <input id="pass" type="text" class="input" placeholder="Enter your email address" name="email" required> 
+                           <input id="pass" type="text" class="input" placeholder="Enter email address" name="email" required> 
                         </div>
                         <div class="group"> 
                            <label for="user" class="label">Username</label> 
-                           <input id="user" type="text" class="input" placeholder="Create your Username" name="username" required>  
+                           <input id="user" type="text" class="input" placeholder="Enter Username" name="username" required>  
                         </div>
                         <div class="group"> 
                            <label for="pass" class="label">Password</label> 
                            <input id="pass" type="password" class="input" data-type="password" placeholder="Create your password" name="password" required> 
                         </div>
                         <div class="group"> 
-                           <label for="pass" class="label">Repeat Password</label> 
-                           <input id="pass" type="password" class="input" data-type="password" placeholder="Repeat your password" name="password-repeat" required> 
+                           <label for="pass" class="label">Confirm Password</label> 
+                           <input id="pass" type="password" class="input" data-type="password" placeholder="Confirm your password" name="password-repeat" required> 
                         </div>
                         <div class="group"> <input type="submit" class="button" value="Sign Up" name="btn-register"> </div>
                         <div class="hr"></div>
