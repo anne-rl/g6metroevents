@@ -34,8 +34,8 @@ class Landing(View):
                     return redirect('user:eventlist')
             else:
                 context = {'msg': 'Invalid username or password!'}
-                return render(request, 'signup_login.html', context = context)
-        return render(request, 'landing.html')
+                return render(request, 'landing.html', context = context)
+        return render(request, 'userdashboard_eventList.html')
 
 class LoginView(View):
     def get(self, request):
@@ -74,14 +74,14 @@ class LoginView(View):
                 if not User.objects.filter(username=username).exists():  
                     if not User.objects.filter(email=email).exists():
                         User.objects.create_user(first_name = firstname, last_name = lastname, username = username, email = email, password = password)
-                        return redirect('user:login')
+                        return redirect('user:landing')
                     else:   
                         return HttpResponse('email exists')  
                 else:
                     return HttpResponse('Username exists')  
             else:
                 return HttpResponse('passwords do not match')  
-            return redirect('user:login')
+            return redirect('user:landing')
         
 def LogoutView(request):
         logout(request)
