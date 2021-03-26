@@ -132,3 +132,4 @@ STATICFILES_DIRS = [
 
 ]
 
+LOGIN_REDIRECT_URL = '/login'
