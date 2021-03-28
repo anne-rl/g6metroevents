@@ -23,5 +23,4 @@ urlpatterns = [
     path('user/', include('metroevents.urls', namespace='user')),
 	path('administrator/', include('metroevents.urls', namespace='administrator'))
     
-]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
