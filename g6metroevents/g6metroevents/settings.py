@@ -83,10 +83,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'group6metroevents_db',
-        'USER': 'group6@group6-db',
+        'USER': 'g6metroevents@group6dbmetroevents',
         'PASSWORD': 'ferolinorepuntelabasanmagno6DB',
-        'HOST': 'group6-db.mysql.database.azure.com',
-        'PORT': '3306'
+        'HOST': 'group6dbmetroevents.mysql.database.azure.com',
+        'PORT': '3306',
+        'OPTIONS': {
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        'ssl': True
+        },
     }
 }
 
