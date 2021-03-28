@@ -16,7 +16,7 @@
     <div class="title">
       MetroEvents Registration Form
     </div>
-    <form id = "form1" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
+    <form method="POST">
         {% csrf_token %}
     <div class="form">
       <div class="inputfield">
@@ -48,8 +48,10 @@
        </div>
       <center>
         <a type = "button" class="btn btn-secondary" id="id_registration" href="{% url 'user:landing' %}" >CANCEL</a>
-        <a type = "button" class="btn btn-primary" id="btn-register" name="btn-register" href="{% url 'user:landing' %}" >REGISTER</a>
+        <!-- <a type = "button" class="btn btn-primary" id="btn-register" name="btn-register" href="{% url 'user:landing' %}" >REGISTER</a> -->
+        <input type="submit" class="btn btn-primary" value="REGISTER" name="btn-register">
      </center>
+  </div>
     </div>
   </form>
 </div>

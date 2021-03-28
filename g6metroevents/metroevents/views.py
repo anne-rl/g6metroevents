@@ -34,8 +34,8 @@ class Landing(View):
                     return redirect('user:eventlist')
             else:
                 context = {'msg': 'Invalid username or password!'}
-                return render(request, 'signup_login.html', context = context)
-        return render(request, 'landing.html')
+                return render(request, 'landing.html', context = context)
+        return render(request, 'userdashboard_eventList.html')
 
 class LoginView(View):
     def get(self, request):
@@ -74,14 +74,14 @@ class LoginView(View):
                 if not User.objects.filter(username=username).exists():  
                     if not User.objects.filter(email=email).exists():
                         User.objects.create_user(first_name = firstname, last_name = lastname, username = username, email = email, password = password)
-                        return redirect('user:login')
+                        return redirect('user:landing')
                     else:   
                         return HttpResponse('email exists')  
                 else:
                     return HttpResponse('Username exists')  
             else:
                 return HttpResponse('passwords do not match')  
-            return redirect('user:login')
+            return redirect('user:landing')
         
 def LogoutView(request):
         logout(request)
@@ -144,6 +144,15 @@ class UserDashboard_EventList(View):
             event = Event.objects.get(id = eventID)
             review = Review.objects.create(user = user, event=event, title=title, createdDateTime=dt.now(), description=description)
             return redirect("user:eventlist")
+        # elif 'btnUpdateProfile' in request.POST:
+        #     user = request.user
+        #     ufname = request.POST.get('user-firstname')
+        #     ulname = request.POST.get('user-lastname')
+        #     uemail = request.POST.get('user-email')
+        #     uusername = request.POST.get('user-username')
+
+        #     update_user = User.objects.filter(user=user).update(first_name = ufname, last_name = ulname, email = uemail, username = uusername)
+        #     return redirect("user:eventlist")
         return redirect ("user:eventlist")
 
 class UserDashboard_JoinedEvents(View):
@@ -201,6 +210,15 @@ class UserDashboard_Notifications(View):
         return render(request, 'userdashboard_notifications.html', context= context)
 
     def post(self, request):
+        # elif 'btnUpdateProfile' in request.POST:
+        #     user = request.user
+        #     ufname = request.POST.get('user-firstname')
+        #     ulname = request.POST.get('user-lastname')
+        #     uemail = request.POST.get('user-email')
+        #     uusername = request.POST.get('user-username')
+
+        #     update_user = User.objects.filter(user=user).update(first_name = ufname, last_name = ulname, email = uemail, username = uusername)
+        #     return redirect("user:eventlist")
         return render(request, 'userdashboard_notifications.html')
 
 #--------- ORGANIZER DASHBOARD
