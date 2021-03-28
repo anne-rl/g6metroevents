@@ -26,7 +26,7 @@ SECRET_KEY = 'ju1w4(wi6kl!7v*q_w=r+cusn48md76-i*n2mv%ve0x^8s3zv#'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "g6metroevents.azurewebsites.net",
+    "group6-metroevents.azurewebsites.net",
     "127.0.0.1:8000",
     "*"
 ]
@@ -83,10 +83,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'group6metroevents_db',
-        'USER': 'group6@group6-db',
+        'USER': 'g6metroevents@group6dbmetroevents',
         'PASSWORD': 'ferolinorepuntelabasanmagno6DB',
-        'HOST': 'group6-db.mysql.database.azure.com',
-        'PORT': '3306'
+        'HOST': 'group6dbmetroevents.mysql.database.azure.com',
+        'PORT': '3306',
+        'OPTIONS': {
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        'ssl': True
+        },
     }
 }
 
@@ -132,6 +136,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
      os.path.join(BASE_DIR, "static"),

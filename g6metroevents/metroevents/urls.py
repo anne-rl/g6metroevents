@@ -15,7 +15,8 @@ urlpatterns = [
     path('notifications', views.UserDashboard_Notifications.as_view(), name="notifications"),
     path('o-eventlist', views.OrgDashboard_EventList.as_view(), name="o-eventlist"),
     path('o-concluded', views.OrgDashboard_ConcludedEvents.as_view(), name="o-concluded"),
-    path('o-notifications', views.OrgDashboard_Notifications.as_view(), name="o-notifications")
+    path('o-notifications', views.OrgDashboard_Notifications.as_view(), name="o-notifications"),
+    path('a-eventlist', views.AdminDashboard_EventList.as_view(), name='a-eventlist')
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

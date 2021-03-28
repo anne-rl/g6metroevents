@@ -144,6 +144,15 @@ class UserDashboard_EventList(View):
             event = Event.objects.get(id = eventID)
             review = Review.objects.create(user = user, event=event, title=title, createdDateTime=dt.now(), description=description)
             return redirect("user:eventlist")
+        # elif 'btnUpdateProfile' in request.POST:
+        #     user = request.user
+        #     ufname = request.POST.get('user-firstname')
+        #     ulname = request.POST.get('user-lastname')
+        #     uemail = request.POST.get('user-email')
+        #     uusername = request.POST.get('user-username')
+
+        #     update_user = User.objects.filter(user=user).update(first_name = ufname, last_name = ulname, email = uemail, username = uusername)
+        #     return redirect("user:eventlist")
         return redirect ("user:eventlist")
 
 class UserDashboard_JoinedEvents(View):
@@ -201,6 +210,15 @@ class UserDashboard_Notifications(View):
         return render(request, 'userdashboard_notifications.html', context= context)
 
     def post(self, request):
+        # elif 'btnUpdateProfile' in request.POST:
+        #     user = request.user
+        #     ufname = request.POST.get('user-firstname')
+        #     ulname = request.POST.get('user-lastname')
+        #     uemail = request.POST.get('user-email')
+        #     uusername = request.POST.get('user-username')
+
+        #     update_user = User.objects.filter(user=user).update(first_name = ufname, last_name = ulname, email = uemail, username = uusername)
+        #     return redirect("user:eventlist")
         return render(request, 'userdashboard_notifications.html')
 
 #--------- ORGANIZER DASHBOARD
@@ -324,4 +342,125 @@ class OrgDashboard_Notifications(View):
     def post(self, request):
         return render(request, 'orgdashboard_notifications.html')
 
+
+#--------- ADMINISTRATOR DASHBOARD
+class AdminDashboard_EventList(View):
+    def get(self, request):
+        user = request.user
+        organizer = user.organizer
+        events = organizer.events.filter(status = "Upcoming")
+        requests = Request.objects.filter(responseStatus = "Pending", organizer = organizer)
+        # notifcount = Notification.objects.filter(user_id= user.id).count()
+        notifcount = Notification.objects.filter(organizer=organizer.id).count()
+
+        #count all concluded events for the concluded events badge
+        concludedEvents = organizer.events.filter(status = "Done")
+        cancelledEvents = organizer.events.filter(status = "Cancelled")
+        concludedEventsCount = concludedEvents.count()
+        context = {
+            'events':events,
+            'user' : user,
+            "username" : user.username,
+            'requests': requests,
+            'notifcount': notifcount,
+            'concludedEvents': concludedEvents,
+            'concludedEventsCount': concludedEventsCount,
+            'cancelledEvents': cancelledEvents,
+        }
+        return render(request, 'orgdashboard_eventList.html', context)
+
+    def post(self, request):
+        if 'btnAdd' in request.POST:
+            name = request.POST.get("name")
+            type = request.POST.get("type")
+            startDateTime = request.POST.get("startdate")
+            endDateTime = request.POST.get("endDate")
+            description = request.POST.get("description")
+            organizerName = request.POST.get("organizer")
+            if Event.objects.filter(name=name).exists():
+                return HttpResponse('Event Name Already Exists')
+            else:
+                organizer = request.user.organizer
+                event = Event.objects.create(name = name, type = type, startDateTime = startDateTime, endDateTime = endDateTime,
+                                    description = description, upvotes = 0, participantsCount = 0,organizer = organizer)
+            return redirect ("user:o-eventlist")
+
+        elif 'btnUpdate' in request.POST:
+            currentUserID = request.user.id
+            id = request.POST.get("eventID")
+            name = request.POST.get("name")
+            type = request.POST.get("type")
+            startDateTime = request.POST.get("startdate")
+            endDateTime = request.POST.get("endDate")
+            description = request.POST.get("description")
+            participantsCount = request.POST.get("participantsCount")
+            status = request.POST.get("status")
+            organizer = Organizer.objects.get(user_id = currentUserID)
+            Event.objects.filter(id=id).update(name=name, type=type, startDateTime=startDateTime, status=status,
+                    endDateTime=endDateTime, description=description, participantsCount=participantsCount,
+                    organizer = Organizer.objects.get(id = organizer.id))
+
+            return redirect ("user:o-eventlist")
+
+        elif 'btnCancel' in request.POST:
+            eventID = request.POST.get("eventID")
+            event = Event.objects.filter(id = eventID).update(status = "Cancelled")
+
+            return redirect ("user:o-eventlist")
+
+        elif 'btnAdminRoleRequest' in request.POST:
+            requestAdmin(request.user.id)
+        
+        elif 'btnAcceptRequest' in request.POST:
+            requestID = request.POST.get('requestID')
+            acceptRequest(requestID)
+            
+        elif 'btnDeclineRequest' in request.POST:
+            requestID = request.POST.get('requestID')
+            declineRequest(requestID)
+
+        # else:
+        #     return redirect(request, 'orgdashboard_eventList.html')
+
+        return redirect('user:o-eventlist')
+
+class AdminDashboard_ConcludedEvents(View):
+    def get(self, request):
+        organizer = request.user.organizer
+        events = Event.objects.filter(organizer = organizer, status = "Done")
+        notifcount = Notification.objects.filter(organizer=organizer.id).count()
+        # notifcount = Notification.objects.filter(user_id = request.user.id).count()
+        reviews = Review.objects.all()
+
+        #count all events for the event list badge
+        eventCount = organizer.events.filter(status = "Upcoming").count()
+        context = {
+            "events" : events,
+            "notifcount": notifcount,
+            "reviews": reviews,
+            "eventCount": eventCount,
+        }
+        return render(request, 'orgdashboard_concludedevents.html', context = context)
+
+    def post(self, request):
+        return render(request, 'orgdashboard_concludedevents.html')
+
+class AdminDashboard_Notifications(View):
+    def get(self, request):
+        user = request.user
+        organizer = user.organizer
+        notifcount = Notification.objects.filter(organizer=organizer.id).count()
+        # notifcount = Notification.objects.filter(user_id= user.id).count()
+        # notifications = user.notifications.all()
+        notifications = organizer.notifications.all()
+        context = {
+            "user" : user,
+            "username" : user.username,
+            "notifcount": notifcount,
+            "notifications" : notifications, 
+        }
+        return render(request, 'orgdashboard_notifications.html', context=context)
+
+    def post(self, request):
+        return render(request, 'orgdashboard_notifications.html')
 
