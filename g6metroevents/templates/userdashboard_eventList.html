@@ -48,7 +48,7 @@
         <li> <a href="notifications" class="notification" style="color:#ffffff;"> <span>Notifications</span> <span class="badge">{{notifcount}}</span> </a> </li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{username}}<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#myaccountModal">My Account</a></li>
+          <li><a data-toggle="modal" data-target="#myaccountModal" data-parent="#accordion" href="#collapse3">My Account</a></li>
           <li><a href="logout">Logout</a></li>
         </ul>
       </li>
@@ -373,6 +373,56 @@
                         </div>
                     </div>
 </div>
+
+ <!-- Modal My Account-->
+                    <div class="modal fade" id="myaccountModal" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#ffb703">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" style="color:#fff">MY PROFILE</h5>
+                                </div>
+                                <form id="updateForm" method="post">
+                                    <div class="modal-body bg-dark text-light">
+                                        <input type="text" name="id" hidden>
+                                          <div class="container">
+                                           
+                                             <div class="row" style="width: 1200">
+                                              <div class="col-md-3 mb-3">
+                                               <label for="user-firstname">First Name</label>
+                                               <input name="user-firstname" type="text" max="255" class="form-control" id="firstname" placeholder="firstname" value="{{user.first_name}}"></div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="user-lastname">Last Name</label>
+                                                <input name="user-lastname" type="text" max="255" class="form-control" id="lastname" placeholder="lastname" value="{{user.last_name}}">
+                                              </div>
+                                             </div>
+                                            <br>
+                                            <div class="row" style="width: 1200">
+                                             <div class="col-md-3 mb-3">
+                                                <label for="user-email">Email</label>
+                                                <input name="user-email" type="text" max="255" class="form-control" id="email" placeholder="email" value="{{user.email}}" >
+                                             </div>
+                                              <div class="col-md-3 mb-3">
+                                                <label for="user-username">Username</label>
+                                                <input name="user-username" type="text" max="255" class="form-control" id="username" placeholder="username" value="{{user.username}}">
+                                             </div>
+                                            </div>
+                                            <br>
+                                            <div class="col-sm-4" hidden>
+                                    </div>
+                                         </div>    
+                                    </div>
+                                    <div class="modal-footer">
+                                       {% csrf_token %}
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">BACK</button>
+                                        <button type="submit" id="btnUpdateProfile" name="btnUpdateProfile" class="btn btn-primary" style="background-color:#028090; color:#ffffff;">UPDATE</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                   
 {% endblock content %}
 </body>
 </html>
