@@ -1,0 +1,145 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+   <head>
+      {% block headerinclude %}
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>ADMIN DASHBOARD</title>
+      <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> {% endblock headerinclude %} 
+   </head>
+   <style>
+      .close {
+      color: #ffffff;
+      }
+      .modal-dialog {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      }
+   </style>
+   <body style="background: #E4FDE1">
+      {% block content %}
+      <nav class="navbar navbar-default navbar-static-top" style="background-color: #1C2541; border-color: #1C2541;">
+         <div class="container-fluid">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand" href="#" style="color:#ffffff;">
+               ADMIN DASHBOARD
+               </a> 
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav navbar-right">
+                  <li><a href="#" style="color:#ffffff;">{{admin.username}}</a></li>
+                  <li><a href="logout" style="color:#ffffff;">Logout</a></li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+
+      <div class="container-fluid">
+         <div class="col col-md-3">
+            <br>
+            <div class="panel-group" id="accordion">
+               <div class="panel panel-default">
+                  <div class="panel-heading" style="background-color: #F45B69; border-color: #F45B69; color:#ffffff;">
+                     <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        Events</a>
+                     </h4>
+                  </div>
+                  <div id="collapse1" class="panel-collapse collapse in">
+                     <ul class="list-group">
+                        <li class="list-group-item">Organizer Requests</li>
+                        <li class="list-group-item"><a href="a-notifications">Administrator Requests</a><span class="badge">0</span> </li>
+                        <li class="list-group-item"><a href="{% url 'admin:index' %}">Advanced Operations</a></li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--Tables--->
+         <div class="col col-md-9">
+            <div id="card-header" class="card-header bg-dark text-light">
+               <h1 class="text-center" style="font-weight: 500;">REQUESTS FOR ORGANIZER ROLE</h1>
+               <br> 
+            </div>
+            <table class="table table-hover">
+               <thead>
+                  <tr>
+                     <th scope="col">User</th>
+                     <th scope="col">Date and Time Requested</th>
+                     <th scope="col">Status</th>
+                     <th scope="col"></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for request in requests %}
+                  <tr>
+                     <td>{{request.user.first_name}} {{request.user.last_name}}</td>
+                     <td>{{request.requestDateTime}}</td>
+                     <td>{{request.responseStatus}}</td>
+                     <td class="align-middle">
+                        <td class="align-middle">
+                           <form method="POST">
+                              {% csrf_token %}
+                              <div class="col-sm-2" hidden>
+                                 <input name="requestID" id="requestID" type="int" placeholder="" class="form-control"  max="100" value="{{request.id}}"> 
+                              </div>
+                              <div class="col-sm-6">
+                                 <button type="submit" class="btn btn-xs" id="btnDeclineOrgRequest" name="btnDeclineOrgRequest" data-toggle="modal" style="background-color:#F45B69; border-color:#F45B69; color:#ffffff;">Decline</button>
+                              </div>
+                              <div class="col-sm-6">
+                                 <button type="submit" class="btn btn-xs" id="btnOrganizerRequest" name="btnOrganizerRequest" data-toggle="modal" style="background-color:#028090; border-color:#028090; color:#ffffff;">Accept</button>
+                              </div>   
+                           </form>
+                        </td>
+                     </td>
+                  </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+            <div id="card-header" class="card-header bg-dark text-light">
+               <h1 class="text-center" style="font-weight: 500;">RESPONDED REQUESTS FOR ORGANIZER ROLE</h1>
+               <br> 
+            </div>
+            <table class="table table-hover">
+               <thead>
+                  <tr>
+                     <th scope="col">User</th>
+                     <th scope="col">Date and Time Requested</th>
+                     <th scope="col">Status</th>
+                     <th scope="col">Date and Time Responded</th>
+                     <th scope="col"></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for respondedRequest in respondedRequests %}
+                  <tr>
+                     <td>{{respondedRequest.user.first_name}} {{respondedRequest.user.last_name}}</td>
+                     <td>{{respondedRequest.requestDateTime}}</td>
+                     <td>{{respondedRequest.responseStatus}}</td>
+                     <td>{{respondedRequest.responseDateTime}}</td>
+                     <td class="align-middle">
+                        <form method="POST">
+                           {% csrf_token %}
+                           <div class="col-sm-2" hidden>
+                              <input name="requestID" id="respondedRequestID" type="int" placeholder="" class="form-control"  max="100" value="{{respondedRequest.id}}"> 
+                           </div>
+                           <div class="col-sm-6">
+                              <button type="submit" class="btn btn-xs" name="btnDeleteRequest" data-toggle="modal" style="background-color:#F45B69; border-color:#F45B69; color:#ffffff;">Delete</button>
+                           </div>
+                        </form>
+                     </td>
+                     {% endfor %}
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      {% endblock content %} 
+   </body>
+</html>

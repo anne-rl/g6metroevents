@@ -24,8 +24,8 @@ class Landing(View):
             if user is not None:
                 login(request, user)
                 #admin
-                if request.user.is_staff or request.user.is_superuser: 
-                    return HttpResponseRedirect(reverse('admin:index'))
+                if request.user.is_staff or request.user.is_superuser:
+                    return redirect('user:ao-notifications')
                 #organizer
                 elif hasattr(request.user,'organizer'):
                     return redirect('user:o-eventlist')
@@ -464,3 +464,48 @@ class AdminDashboard_Notifications(View):
     def post(self, request):
         return render(request, 'orgdashboard_notifications.html')
 
+#--------- ADMIN DASHBOARD
+class AdminDashboard_OrganizerNotifications(View):
+    def get(self, request):
+        admin = request.user
+        requests = Request.objects.filter(responseStatus = "Pending", type = 'requestOrganizer')
+        respondedRequests = Request.objects.filter(type = 'requestOrganizer').exclude(responseStatus = "Pending")
+        context = {
+            'admin':admin,
+            'requests': requests,
+            'respondedRequests': respondedRequests
+        }
+        return render(request, 'admindashboard_organizerRequests.html',context)
+
+    def post(self, request):
+        requestID = request.POST.get('requestID')
+        if 'btnOrganizerRequest' in request.POST:
+            acceptOrganizer(requestID)
+        if 'btnDeclineOrgRequest' in request.POST:
+            declineOrganizer(requestID)
+        if 'btnDeleteRequest' in request.POST:
+            deleteRequest(requestID)
+        return redirect('user:ao-notifications')
+
+class AdminDashboard_AdminNotifications(View):
+    def get(self, request):
+        admin = request.user
+        requests = Request.objects.filter(responseStatus = "Pending", type = 'requestAdmin')
+        respondedRequests = Request.objects.filter(type = 'requestAdmin').exclude(responseStatus = "Pending")
+        context = {
+            "username" : admin.username,
+            'admin':admin,
+            'requests': requests,
+            'respondedRequests': respondedRequests
+        }
+        return render(request, 'admindashboard_adminRequests.html',context)
+
+    def post(self, request):
+        requestID = request.POST.get('requestID')
+        if 'btnAdminRequest' in request.POST:
+            acceptAdmin(requestID)
+        if 'btnDeclineAdminRequest' in request.POST:
+            declineAdmin(requestID)
+        if 'btnDeleteRequest' in request.POST:
+            deleteRequest(requestID)
+        return redirect('user:a-notifications')
