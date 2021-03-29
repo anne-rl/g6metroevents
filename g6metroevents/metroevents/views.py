@@ -144,15 +144,15 @@ class UserDashboard_EventList(View):
             event = Event.objects.get(id = eventID)
             review = Review.objects.create(user = user, event=event, title=title, createdDateTime=dt.now(), description=description)
             return redirect("user:eventlist")
-        # elif 'btnUpdateProfile' in request.POST:
-        #     user = request.user
-        #     ufname = request.POST.get('user-firstname')
-        #     ulname = request.POST.get('user-lastname')
-        #     uemail = request.POST.get('user-email')
-        #     uusername = request.POST.get('user-username')
+        elif 'btnUpdateProfile' in request.POST:
+            currentUserID = request.user.id
+            ufname = request.POST.get('user-firstname')
+            ulname = request.POST.get('user-lastname')
+            uemail = request.POST.get('user-email')
+            uusername = request.POST.get('user-username')
 
-        #     update_user = User.objects.filter(user=user).update(first_name = ufname, last_name = ulname, email = uemail, username = uusername)
-        #     return redirect("user:eventlist")
+            update_user = User.objects.filter(id= currentUserID).update(first_name = ufname, last_name = ulname, email = uemail, username = uusername)
+            return redirect("user:eventlist")
         return redirect ("user:eventlist")
 
 class UserDashboard_JoinedEvents(View):
