@@ -25,7 +25,7 @@ class Landing(View):
                 login(request, user)
                 #admin
                 if request.user.is_staff or request.user.is_superuser:
-                    return redirect('user:ao-notifications')
+                    return redirect('user:a-notifications')
                 #organizer
                 elif hasattr(request.user,'organizer'):
                     return redirect('user:o-eventlist')
@@ -490,7 +490,7 @@ class AdminDashboard_OrganizerNotifications(View):
 class AdminDashboard_AdminNotifications(View):
     def get(self, request):
         admin = request.user
-        requests = Request.objects.filter(responseStatus = "Pending", type = 'requestAdmin')
+        requests = Request.objects.filter(responseStatus = "Pending")
         respondedRequests = Request.objects.filter(type = 'requestAdmin').exclude(responseStatus = "Pending")
         context = {
             "username" : admin.username,
