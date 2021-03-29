@@ -60,8 +60,7 @@
          <div class="col col-md-12">
             <div id="card-header" class="card-header bg-dark text-light">
                <button type="button" class="btn btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalAddEvent"
-               style="float:right; background-color:#fcbf49; border-color:#fcbf49; color:black;">
-                  <i class="fa fa-plus">CREATE AN EVENT</i>
+               style="float:right; background-color:#fcbf49; border-color:#fcbf49; color:black;">CREATE AN EVENT</i>
                </button>
                <h1 class="text-center" style="font-weight: 500;">MY EVENTS</h1>
             </div>
@@ -246,13 +245,13 @@
                <thead>
                   <tr>
                      <th scope="col">Event Name</th>
-                     <th scope="col">Upvote Count</th>
-                     <th scope="col">Type</th>
+                     <th scope="col">Upvotes</th>
+                     <th scope="col">Type of Event</th>
                      <th scope="col">Start</th>
                      <th scope="col">End</th>
-                     <th scope="col">Details</th>
-                     <th scope="col">Participants</th>
-                     <th scope="col">Reviews</th>
+                     <th scope="col">Show Details</th>
+                     <th scope="col">No. of Participants</th>
+                     <!-- <th scope="col">Reviews</th> -->
                   </tr>
                </thead>
                <tbody>
@@ -267,9 +266,9 @@
                         <button type="button" class="btn btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalView-{{event.id}}" style="background-color:#028090; border-color: #028090; color: #ffffffff;"><i class="fa fa-eye"></i>Details</button>
                      </td>
                      <td>{{event.participantsCount}}</td>
-                     <td class="align-middle">
+                    <!--  <td class="align-middle">
                         <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalReviews-{{event.id}}" style="background-color:#1C2541; color:#ffffff; border-color: #1C2541;"><i class="fa fa-pencil"></i>Reviews<span class="badge">0</span></button>
-                     </td>
+                     </td> -->
                   </tr>
                   <!-- Modal VIEW-->
                   <div class="modal fade" id="modalView-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
@@ -381,13 +380,13 @@
                <thead>
                   <tr>
                      <th scope="col">Event Name</th>
-                     <th scope="col">Upvote Count</th>
-                     <th scope="col">Type</th>
+                     <th scope="col">Upvotes</th>
+                     <th scope="col">Type of Event</th>
                      <th scope="col">Start</th>
                      <th scope="col">End</th>
-                     <th scope="col">Details</th>
-                     <th scope="col">Participants</th>
-                     <th scope="col">Reviews</th>
+                     <th scope="col">Show Details</th>
+                     <th scope="col">No. of Participants</th>
+                     <!-- <th scope="col">Reviews</th> -->
                   </tr>
                </thead>
                <tbody>
@@ -402,9 +401,9 @@
                         <button type="button" class="btn btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalView-{{event.id}}" style="background-color:#028090; border-color: #028090; color: #ffffffff;"><i class="fa fa-eye"></i>Details</button>
                      </td>
                      <td>{{event.participantsCount}}</td>
-                     <td class="align-middle">
+                     <!-- <td class="align-middle">
                         <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalReviews-{{event.id}}" style="background-color:#1C2541; color:#ffffff; border-color: #1C2541;"><i class="fa fa-pencil"></i>Reviews<span class="badge">0</span></button>
-                     </td>
+                     </td> -->
                   </tr>
                   <!-- Modal VIEW-->
                   <div class="modal fade" id="modalView-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
@@ -472,7 +471,7 @@
                      </div>
                   </div> -->
                   <!-- Modal Review-->
-                  <div class="modal fade" id="modalReviews-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                 <!--  <div class="modal fade" id="modalReviews-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
                      <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                            <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
@@ -505,7 +504,7 @@
                               </div>
                         </div>
                      </div>
-                  </div>
+                  </div> -->
                {% endfor %}
                </tbody>
             </table>

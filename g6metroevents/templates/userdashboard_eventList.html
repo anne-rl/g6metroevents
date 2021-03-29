@@ -163,7 +163,7 @@
                      <th scope="col">End</th>
                      <th scope="col">Total Votes</th>
                      <th scope="col">Show Details</th>
-                     <th scope="col">Give Review</th>
+                     <!-- <th scope="col">Give Review</th> -->
                      <th scope="col">Vote</th>
                      
                   </tr>
@@ -180,9 +180,9 @@
                      <td class="align-middle">
                         <button type="button" class="btn btn-success btn-xs" id="viewBtn" data-toggle="modal" data-target="#modalJoinedView-{{event.id}}" style="background-color:#219ebc; border-color: #219ebc;"></i> View</button>
                      </td>
-                     <td class="align-middle">
+                     <!-- <td class="align-middle">
                         <button type="button" class="btn btn-success btn-xs" id="reviewBtn" data-toggle="modal" data-target="#modalReview-{{event.id}}" style="background-color: #023047; border-color: #023047;"></i>Review</button>
-                     </td>
+                     </td> -->
                      <td class="align-middle">
                         <form method="POST">
                            {% csrf_token %}
@@ -257,7 +257,7 @@
                      </div>
                   </div>
                   <!-- Modal Review-->
-                  <div class="modal fade" id="modalReview-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                  <!-- <div class="modal fade" id="modalReview-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
                      <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                            <div class="modal-header" style="background-color:#ffb703; color:black;">
@@ -305,7 +305,7 @@
                            </form>
                         </div>
                      </div>
-                  </div>
+                  </div> -->
                   {% endfor %}
                </tbody>
             </table>
