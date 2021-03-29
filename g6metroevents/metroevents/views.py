@@ -491,12 +491,12 @@ class AdminDashboard_AdminNotifications(View):
     def get(self, request):
         admin = request.user
         requests = Request.objects.filter(responseStatus = "Pending", type = 'requestOrganizer' or 'requestAdministrator')
-        respondedRequests = Request.objects.filter(type = 'requestAdmin').exclude(responseStatus = "Pending")
+        events = Event.objects.all()
         context = {
             "username" : admin.username,
             'admin':admin,
             'requests': requests,
-            'respondedRequests': respondedRequests
+            'events': events
         }
         return render(request, 'admindashboard_adminRequests.html',context)
 
