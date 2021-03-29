@@ -490,18 +490,26 @@ class AdminDashboard_OrganizerNotifications(View):
 class AdminDashboard_AdminNotifications(View):
     def get(self, request):
         admin = request.user
-        requests = Request.objects.filter(responseStatus = "Pending", type = 'requestOrganizer' or 'requestAdministrator')
+        requestsO = Request.objects.filter(responseStatus = "Pending", type = 'requestOrganizer')
+        requestsA = Request.objects.filter(responseStatus = "Pending", type = 'requestAdmin')
         events = Event.objects.all()
         context = {
             "username" : admin.username,
             'admin':admin,
-            'requests': requests,
+            'requestsO': requestsO,
+            'requestsA': requestsA,
             'events': events
         }
         return render(request, 'admindashboard_adminRequests.html',context)
 
     def post(self, request):
         requestID = request.POST.get('requestID')
+        if 'btnOrganizerRequest' in request.POST:
+            acceptOrganizer(requestID)
+        if 'btnDeclineOrgRequest' in request.POST:
+            declineOrganizer(requestID)
+        if 'btnDeleteRequest' in request.POST:
+            deleteRequest(requestID)
         if 'btnAdminRequest' in request.POST:
             acceptAdmin(requestID)
         if 'btnDeclineAdminRequest' in request.POST:
