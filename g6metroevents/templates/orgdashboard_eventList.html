@@ -104,7 +104,7 @@
                   <div class="modal fade" id="modalView-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
                      <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
-                           <div class="modal-header" style="background-color:#f77f00; color:black;">
+                           <div class="modal-header" style="background-color:#1C2541; color:#ffffff;">
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                               <h5 class="modal-title">{{event.name}} Details</h5>
                            </div>
@@ -119,43 +119,50 @@
                                     </div>
                                     {% endif %} {% endif %} {% endfor %} {% endfor %} 
                                  </div> -->
-                                  <input name="eventID" id="eventID" type="hidden" placeholder="" class="form-control" value="{{event.id}}"> 
-                                 <div class="container">
-                                 <div class="row" style="width: 1200">
-                                    <div class="col-md-3 mb-3">
-                                       <label>Type of Event</label>
+                                 <div class="row">
+                                    <div class="col-sm-4">
+                                       <label>Event Name</label>
+                                       <input name="name" type="text" max="255" class="form-control" id="name" placeholder="" value="{{event.name}}" }> 
+                                    </div>
+                                    <div class="col-sm-4">
+                                       <label>Event Type</label>
                                        <input name="type" id="type" type="int" placeholder="" class="form-control" max="100" value="{{event.type}}" required> 
                                     </div>
-                                    <div class="col-md-3 mb-3">
+                                    <div class="col-sm-4">
+                                       <input name="eventID" id="eventID" type="hidden" placeholder="" class="form-control" value="{{event.id}}"> 
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-sm-4">
                                        <label>Start</label>
                                        <input name="startdate" type="datetime-local" class="form-control" id="startdate" placeholder="sgs" value="{{event.startDateTime|date:'Y-m-d\TH:i:s'}}"> 
                                     </div>
-                                    <div class="col-md-3 mb-3">
+                                    <div class="col-sm-4">
                                        <label>End</label>
                                        <input name="endDate" id="endDate" type="datetime-local" placeholder="" class="form-control" max="100" value="{{event.endDateTime|date:'Y-m-d\TH:i:s'}}"> 
                                     </div>
                                  </div>
-                                 <br>
-                                 <div class="row" style="width: 1200">
-                                   <div class="col-md-6 mb-4">
-                                       <strong><p>&nbsp;&nbsp;&nbsp;&nbsp;Description</p></strong>
-                                       <textarea id="description" name="description" rows="8" cols="110" style="resize: none;"> {{event.description}}</textarea>
-                                  </div>
+                                 <div class="row">
+                                    <center>
+                                       <strong>
+                                          <p>&nbsp;&nbsp;&nbsp;&nbsp;Description</p>
+                                       </strong>
+                                       <textarea id="description" name="description" rows="8" cols="100" style="width: 95%;"> {{event.description}}</textarea>
+                                    </center>
                                  </div>
                                  <div class="row">
-                                    <div class="col-sm-5">
-                                       <label>Event Status</label>
-                                       <input name="status" id="status" type="int" placeholder="" class="form-control" max="100" value="{{event.status}}"> 
+                                    <div class="col-sm-4">
+                                       <label>Current Participants Count</label>
+                                       <input name="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="{{event.participantsCount}}" readonly> 
                                     </div>
                                     <div class="col-sm-4">
-                                       <label>Number of Participants</label>
-                                       <input name="participantsCount" id="participantsCount" type="int" placeholder="" class="form-control" max="100" value="{{event.participantsCount}}" readonly> 
+                                       <label>Status</label>
+                                       <input name="status" id="status" type="int" placeholder="" class="form-control" max="100" value="{{event.status}}"> 
                                     </div>
                                  </div>
                               </div>
-                           </div>
                               <div class="modal-footer">
-                                 <button type="button" class="btn" data-dismiss="modal">BACK</button>
+                                 <button type="button" class="btn" data-dismiss="modal" style="background-color:#F45B69; color:#ffffff;">BACK</button>
                                  <button type="submit" id="btnUpdate" name="btnUpdate" class="btn" style="background-color:#028090; color:#ffffff;">UPDATE</button>
                               </div>
                            </form>
