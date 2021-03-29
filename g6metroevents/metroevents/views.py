@@ -490,7 +490,7 @@ class AdminDashboard_OrganizerNotifications(View):
 class AdminDashboard_AdminNotifications(View):
     def get(self, request):
         admin = request.user
-        requests = Request.objects.filter(responseStatus = "Pending")
+        requests = Request.objects.filter(responseStatus = "Pending", type = 'requestOrganizer' or 'requestAdministrator')
         respondedRequests = Request.objects.filter(type = 'requestAdmin').exclude(responseStatus = "Pending")
         context = {
             "username" : admin.username,
